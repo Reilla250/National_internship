@@ -1,202 +1,205 @@
 
-National Internship
-Final Course Project
+# National Digital Internship & Industry Collaboration Management System (NDIMS)
 
-National Digital Internship and Industry Collaboration Management System NDIMS
+A full-stack web platform designed to digitize and manage national internship programs while strengthening collaboration between students, companies, institutions, and government.
+## Overview
 
-A complete full stack web platform for managing national internships and industry academia collaboration
+NDIMS is a centralized system that streamlines the entire internship lifecycle including:
 
-Tech Stack
+* Internship posting and discovery
+* Student applications and tracking
+* Weekly report submissions (digital logbook)
+* Supervisor evaluations
+* Institution validation and certification
+* Government-level analytics and reporting
 
-Frontend
-React 18
-React Router version 6
-Recharts
-Tailwind CSS
+It ensures transparency, efficiency, and structured communication across all stakeholders.
 
-Backend
-Java 17
-Spring Boot 3.2
-Spring Security plus JWT
+---
 
-Database
-MySQL 8.0
-Spring Data JPA Hibernate
+## Tech Stack
 
-Authentication
-JWT Bearer Tokens
-BCrypt password hashing
+### Frontend
 
-System Actors and Dashboards
+* React 18
+* React Router v6
+* Tailwind CSS
+* Recharts
+* Axios
 
-Student
-Dashboard
-Browse Internships
-Applications
-Weekly Reports
-Evaluations
-Certificates
+### Backend
 
-Company
-Dashboard
-Manage Internships
-Review Applications
-Collaborations
+* Spring Boot 3.2
+* Spring Security
+* JWT Authentication
+* BCrypt password hashing
+* Java 17
 
-Supervisor
-Dashboard
-My Students
-Review Reports
-Submit Evaluations
+### Database
 
-Institution
-Dashboard
-Student Monitoring
-Certificate Issue and Verify
+* MySQL 8.0
+* Spring Data JPA / Hibernate
 
-Government
-National Dashboard with KPIs charts and analytics
-Reports tab
+---
 
-Admin
-Full Dashboard
-User management
-System statistics
-Charts
+## Key Features
 
-Project Structure
+### Student Module
 
-internship system
+* Browse available internships
+* Apply for internships
+* Submit weekly progress reports
+* View supervisor evaluations
+* Download certificates
 
-database folder contains schema SQL for MySQL schema and seed data
+### Company Module
 
-backend internship backend folder
+* Create and manage internship postings
+* Review student applications
+* Track interns’ progress
+* Manage collaborations
 
-source main Java com internship
+### Supervisor Module
 
-entity folder contains 12 JPA entities
-repository folder contains 12 Spring Data repositories
-service folder contains 10 business logic services
-controller folder contains 10 REST controllers
-dto folder contains 7 DTO classes
-security folder contains JWT filter utilities and user details service
-config folder contains security configuration CORS and RBAC
-exception folder contains global exception handler
+* Monitor assigned students
+* Review weekly reports
+* Submit performance evaluations
 
-frontend internship frontend folder
+### Institution Module
 
-source folder contains
+* Validate internship completion
+* Issue digital certificates
+* Verify student records
 
-context folder for AuthContext JWT state
-services folder for API calls using Axios endpoints
-components folder for layout sidebar UI components protected routes
-pages folder
+### Government Module
 
-auth pages login register
+* National analytics dashboard
+* Performance KPIs and reporting
+* Internship ecosystem monitoring
 
-student pages dashboard browse internships applications reports evaluations certificates
+### Admin Module
 
-company pages dashboard internships applications collaboration
+* User management
+* System-wide analytics
+* Platform configuration
 
-supervisor pages dashboard students reports evaluations
+---
 
-institution pages dashboard students
+## System Architecture
 
-government pages dashboard overview analytics reports tabs
+Frontend (React)
+→ REST API calls
+Backend (Spring Boot)
+→ Business logic layer
+→ Spring Security (JWT authentication)
+→ Database layer (MySQL)
 
-admin pages dashboard overview user management tabs
+---
 
-Quick Start
+## Project Structure
 
-Database setup
-Run MySQL command to import schema SQL file from database folder
+```
+internship-system/
+│
+├── database/
+│   └── schema.sql
+│
+├── backend/
+│   └── internship-backend/
+│       ├── entity/
+│       ├── repository/
+│       ├── service/
+│       ├── controller/
+│       ├── dto/
+│       ├── security/
+│       ├── config/
+│       └── exception/
+│
+└── frontend/
+    └── internship-frontend/
+        ├── context/
+        ├── services/
+        ├── components/
+        └── pages/
+```
+## System Workflow
 
-Backend setup
-Go to backend internship backend folder
-Update database credentials in application properties file
-Set MySQL username and password
-Run Maven Spring Boot application
-API runs on localhost port 8080
+1. Student registers and logs in
+2. Student browses and applies for internships
+3. Company reviews and approves applications
+4. Student submits weekly reports
+5. Supervisor evaluates performance
+6. Institution validates completion
+7. Certificate is issued with verification code
+8. Government monitors national analytics
 
-Frontend setup
-Go to frontend internship frontend folder
-Run npm install
-Run npm start
-Application runs on localhost port 3000
+---
 
-API Endpoints
+## Security Features
 
-Authentication
-POST api auth register register user
-POST api auth login login and return JWT token
+* JWT-based authentication
+* Role-Based Access Control (RBAC)
+* Password encryption using BCrypt
+* Secure REST APIs
+* CORS configuration for frontend communication
 
-Internships
-GET api internships get all internships
-GET api internships search public search
-POST api internships company id create internship company role
-PUT api internships id update internship company role
-PATCH api internships id status update status company role
-DELETE api internships id delete internship company role
+---
 
-Applications
-POST api applications student id apply student role
-GET api applications student id view student applications
-GET api applications company id view company applications
-PATCH api applications id status update application company role
+## Installation Guide
 
-Reports
-POST api reports student id submit report student role
-GET api reports student id view reports student and supervisor
-GET api reports internship id supervisor view reports
-PATCH api reports id review supervisor review report
+### 1. Database Setup
 
-Evaluations
-POST api evaluations supervisor id submit evaluation supervisor role
-GET api evaluations student id view student evaluations
-GET api evaluations supervisor id view supervisor evaluations
+```
+mysql -u root -p < database/schema.sql
+```
 
-Certificates
-POST api certificates generate institution role
-GET api certificates student id view certificates student role
-GET api certificates verify code public verification
+### 2. Backend Setup
 
-Collaborations
-GET api collaborations view all
-POST api collaborations create company or institution role
-PATCH api collaborations id status update company or institution role
+```bash
+cd backend/internship-backend
+mvn spring-boot:run
+```
 
-Dashboard
-GET api government stats government and admin role
-GET api admin stats admin role
-GET api admin users admin role
+Update database credentials in:
 
-System Flow
+```
+src/main/resources/application.properties
+```
 
-Student registers and logs in
-Student searches internships
-Student applies for internship
-Company reviews applications and accepts or rejects
-Student submits weekly reports as digital logbook
-Supervisor reviews reports and submits evaluation
-Institution validates internship and issues certificate
-Certificate is downloadable with unique verification code
-Government views national analytics dashboard
+Backend runs at:
 
-Security
+```
+http://localhost:8080
+```
 
-JWT authentication for all protected routes
-Role based access control using PreAuthorize
-BCrypt password hashing
-CORS configured for React frontend
-Global exception handling with proper status codes
+### 3. Frontend Setup
 
-Future Enhancements
+```
+cd frontend/internship-frontend
+npm install
+npm start
+```
 
-Mobile application using React Native
-AI based internship matching system
-National digital ID integration
-Real time notifications using WebSocket
-HR platform integrations
-Email notification system
+Frontend runs at:
+
+```
+http://localhost:3000
+```
+
+## Future Improvements
+
+* Mobile app (React Native)
+* AI-based internship matching
+* Real-time notifications (WebSocket)
+* Email notification system
+* National digital ID integration
+* HR system integrations
+
+## Author
+
+Developed as a final course project for national internship and industry collaboration management.
 
 
+* make it **more advanced (GitHub “top-level project” style)**
+* add **badges (build, license, tech stack icons)**
+* or convert it into a **PDF documentation report for submission**
