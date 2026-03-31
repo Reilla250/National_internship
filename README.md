@@ -1,114 +1,234 @@
-# National Digital Internship & Industry Collaboration Management System (NDIMS)
+# 🌍 National Digital Internship & Industry Collaboration Management System (NDIMS)
 
-A complete full-stack web platform for managing national internships and industry–academia collaboration.
-
----
-
-## Tech Stack
-
-| Layer      | Technology                                             |
-|------------|-------------------------------------------------------|
-| Frontend   | React 18, React Router v6, Recharts, Tailwind CSS     |
-| Backend    | Java 17, Spring Boot 3.2, Spring Security + JWT       |
-| Database   | MySQL 8.0, Spring Data JPA / Hibernate                |
-| Auth       | JWT Bearer Tokens, BCrypt password hashing            |
+![Status](https://img.shields.io/badge/status-active-success)
+![Backend](https://img.shields.io/badge/backend-SpringBoot-green)
+![Frontend](https://img.shields.io/badge/frontend-React-blue)
+![Database](https://img.shields.io/badge/database-MySQL-orange)
+![License](https://img.shields.io/badge/license-Academic-lightgrey)
 
 ---
 
-## System Actors & Dashboards
+## 📌 Overview
 
-| Actor        | Dashboard Pages                                                       |
-|--------------|-----------------------------------------------------------------------|
-| STUDENT      | Dashboard, Browse Internships, Applications, Weekly Reports, Evaluations, Certificates |
-| COMPANY      | Dashboard, Manage Internships, Review Applications, Collaborations    |
-| SUPERVISOR   | Dashboard, My Students, Review Reports, Submit Evaluations            |
-| INSTITUTION  | Dashboard, Student Monitoring, Certificate Issue & Verify             |
-| GOVERNMENT   | National Dashboard (KPIs, charts, analytics), Reports tab             |
-| ADMIN        | Full Dashboard (user management, system stats, charts)                |
+**NDIMS** is a full-stack web platform designed to digitize and manage national internship programs while strengthening collaboration between:
+
+* 🎓 Students
+* 🏢 Companies
+* 🧑‍🏫 Supervisors
+* 🏫 Institutions
+* 🏛 Government
+
+The system improves transparency, efficiency, and communication across all stakeholders.
 
 ---
 
-## Project Structure
+## 🎯 Objectives
+
+* Centralize internship management
+* Automate student application and tracking
+* Enable real-time monitoring and evaluation
+* Provide national-level analytics and reporting
+* Improve collaboration between academia and industry
+
+---
+
+## 🛠 Tech Stack
+
+### 🔹 Frontend
+
+* React 18
+* React Router v6
+* Tailwind CSS
+* Recharts
+* Axios
+
+### 🔹 Backend
+
+* Java 17
+* Spring Boot 3.2
+* Spring Security
+* JWT Authentication
+* BCrypt Password Encryption
+
+### 🔹 Database
+
+* MySQL 8.0
+* Spring Data JPA (Hibernate)
+
+---
+
+## 👥 System Actors & Functionalities
+
+### 🎓 Student
+
+* Browse internships
+* Apply for opportunities
+* Submit weekly reports
+* View evaluations
+* Download certificates
+
+### 🏢 Company
+
+* Post internship opportunities
+* Review applications
+* Manage interns
+* Collaborate with institutions
+
+### 🧑‍🏫 Supervisor
+
+* Monitor assigned students
+* Review reports
+* Submit evaluations
+
+### 🏫 Institution
+
+* Track student progress
+* Validate internship completion
+* Issue certificates
+
+### 🏛 Government
+
+* View national analytics dashboard
+* Monitor KPIs and trends
+* Generate reports
+
+### ⚙️ Admin
+
+* Manage users
+* Monitor system performance
+* Control platform settings
+
+---
+
+## 🧱 System Architecture
+
+```
+Frontend (React)
+   ↓ API Requests
+Backend (Spring Boot)
+   ↓ Business Logic
+Spring Security (JWT)
+   ↓
+Database (MySQL)
+```
+
+---
+
+## 📁 Project Structure
 
 ```
 internship-system/
+│
 ├── database/
-│   └── schema.sql                     MySQL schema + seed data
+│   └── schema.sql
 │
-├── backend/internship-backend/
-│   └── src/main/java/com/internship/
-│       ├── entity/         12 JPA entities
-│       ├── repository/     12 Spring Data repositories
-│       ├── service/        10 business logic services
-│       ├── controller/     10 REST controllers
-│       ├── dto/             7 DTO classes
-│       ├── security/        JWT filter, util, UserDetailsService
-│       ├── config/          Security config (CORS, RBAC)
-│       └── exception/       Global exception handler
+├── backend/
+│   └── internship-backend/
+│       ├── entity/
+│       ├── repository/
+│       ├── service/
+│       ├── controller/
+│       ├── dto/
+│       ├── security/
+│       ├── config/
+│       └── exception/
 │
-└── frontend/internship-frontend/
-    └── src/
-        ├── context/         AuthContext (JWT state)
-        ├── services/        api.js (Axios + all endpoints)
-        ├── components/      Layout, Sidebar, UI components, ProtectedRoute
+└── frontend/
+    └── internship-frontend/
+        ├── context/
+        ├── services/
+        ├── components/
         └── pages/
-            ├── auth/        Login, Register
-            ├── student/     Dashboard, BrowseInternships, Applications,
-            │                Reports, Evaluations, Certificates
-            ├── company/     Dashboard, Internships, Applications, Collaboration
-            ├── supervisor/  Dashboard, Students, Reports, Evaluations
-            ├── institution/ Dashboard, Students
-            ├── government/  Dashboard (Overview, Analytics, Report tabs)
-            └── admin/       Dashboard (Overview + User Management tabs)
 ```
 
 ---
 
-## Quick Start
+## 🔄 System Workflow
 
-### 1. Database
-```bash
+1. Student registers and logs in
+2. Student applies for internships
+3. Company reviews applications
+4. Student submits weekly reports
+5. Supervisor evaluates performance
+6. Institution validates internship
+7. Certificate is generated
+8. Government monitors analytics
+
+---
+
+## ⚙️ Installation Guide
+
+### 1️⃣ Database Setup
+
+```
 mysql -u root -p < database/schema.sql
 ```
 
-### 2. Backend
-```bash
+---
+
+### 2️⃣ Backend Setup
+
+```
 cd backend/internship-backend
-./run.bat
-# API runs at http://localhost:8080
+mvn spring-boot:run
 ```
 
-### 3. Frontend
-```bash
+Runs at: http://localhost:8080
+
+---
+
+### 3️⃣ Frontend Setup
+
+```
 cd frontend/internship-frontend
 npm install
 npm start
-# App runs at http://localhost:3000
 ```
 
----
-
-## System Flow
-
-1. **Student registers** and logs in.
-2. **Student searches** and applies for internships.
-3. **Company reviews** applications and accepts/rejects.
-4. **Student submits weekly reports** (Digital Logbook).
-5. **Supervisor reviews reports** and submits evaluations.
-6. **Institution validates** and issues certificates.
-7. **Certificate is downloadable** with unique verification code.
-8. **Government views national analytics** dashboard.
+Runs at: http://localhost:3000
 
 ---
 
-## Security
+## 🔐 Security Features
 
-- **JWT authentication** for all protected routes.
-- **Role Based Access Control** using @PreAuthorize.
-- **BCrypt password hashing**.
-- **CORS configured** for React frontend.
-- **Global exception handling** with proper status codes.
+* JWT Authentication
+* Role-Based Access Control (RBAC)
+* BCrypt password hashing
+* Secure REST APIs
+* CORS configuration
 
 ---
 
-*Built for Rwanda's National Workforce Development — NDIMS v1.0*
+## 📊 Key Features
+
+* Internship Management System
+* Digital Logbook (Weekly Reports)
+* Evaluation & Grading System
+* Certificate Generation & Verification
+* National Analytics Dashboard
+
+---
+
+## 🚀 Future Improvements
+
+* Mobile Application (React Native)
+* AI-based internship matching
+* Real-time notifications
+* Email integration
+* National ID system integration
+
+---
+
+## 🤝 Contribution
+
+This project is developed for academic and learning purposes.
+
+---
+
+## 👨‍💻 Author
+
+**Patric Tuyisenge**
+
+---
+
+⭐ NDIMS v1.0 — Smart Internship Management System
