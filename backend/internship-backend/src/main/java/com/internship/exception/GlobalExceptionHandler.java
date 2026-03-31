@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@lombok.extern.slf4j.Slf4j
 public class GlobalExceptionHandler {
 
     record ErrorResponse(int status, String message, LocalDateTime timestamp) {}
@@ -52,7 +53,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleGeneral(Exception ex, jakarta.servlet.http.HttpServletRequest request) {
+        log.error("Unhandled exception occurred on URI {}: {}", request.getRequestURI(), ex.getMessage(), ex);
+        try {
+            java.io.PrintWriter pw = new java.io.PrintWriter(new java.io.FileWriter("c:/Users/Pazzo/Desktop/internship-system/tmp/browser_error.log", true));
+            pw.println("--- EXCEPTION CAUGHT ON URI: " + request.getRequestURI() + " ---");
+            ex.printStackTrace(pw);
+            pw.close();
+        } catch(Exception e) {}
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(500, "An unexpected error occurred", LocalDateTime.now()));
     }

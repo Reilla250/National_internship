@@ -17,20 +17,20 @@ public class EvaluationController {
 
     @PostMapping("/supervisor/{supervisorId}")
     @PreAuthorize("hasAnyRole('SUPERVISOR','COMPANY','ADMIN')")
-    public ResponseEntity<Response> evaluate(@PathVariable Long supervisorId,
+    public ResponseEntity<Response> evaluate(@PathVariable("supervisorId") Long supervisorId,
                                              @RequestBody CreateRequest req) {
         return ResponseEntity.ok(evaluationService.evaluate(supervisorId, req));
     }
 
     @GetMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','SUPERVISOR','INSTITUTION','ADMIN')")
-    public ResponseEntity<List<Response>> getByStudent(@PathVariable Long studentId) {
+    public ResponseEntity<List<Response>> getByStudent(@PathVariable("studentId") Long studentId) {
         return ResponseEntity.ok(evaluationService.getByStudent(studentId));
     }
 
     @GetMapping("/supervisor/{supervisorId}")
     @PreAuthorize("hasAnyRole('SUPERVISOR','ADMIN')")
-    public ResponseEntity<List<Response>> getBySupervisor(@PathVariable Long supervisorId) {
+    public ResponseEntity<List<Response>> getBySupervisor(@PathVariable("supervisorId") Long supervisorId) {
         return ResponseEntity.ok(evaluationService.getBySupervisor(supervisorId));
     }
 }

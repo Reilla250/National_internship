@@ -17,26 +17,26 @@ public class ReportController {
 
     @PostMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','ADMIN')")
-    public ResponseEntity<Response> submit(@PathVariable Long studentId,
+    public ResponseEntity<Response> submit(@PathVariable("studentId") Long studentId,
                                            @RequestBody CreateRequest req) {
         return ResponseEntity.ok(reportService.submitReport(studentId, req));
     }
 
     @GetMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','ADMIN','SUPERVISOR','INSTITUTION')")
-    public ResponseEntity<List<Response>> getByStudent(@PathVariable Long studentId) {
+    public ResponseEntity<List<Response>> getByStudent(@PathVariable("studentId") Long studentId) {
         return ResponseEntity.ok(reportService.getByStudent(studentId));
     }
 
     @GetMapping("/internship/{internshipId}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN','SUPERVISOR','INSTITUTION')")
-    public ResponseEntity<List<Response>> getByInternship(@PathVariable Long internshipId) {
+    public ResponseEntity<List<Response>> getByInternship(@PathVariable("internshipId") Long internshipId) {
         return ResponseEntity.ok(reportService.getByInternship(internshipId));
     }
 
     @PatchMapping("/{reportId}/review")
     @PreAuthorize("hasAnyRole('SUPERVISOR','ADMIN','INSTITUTION')")
-    public ResponseEntity<Response> review(@PathVariable Long reportId,
+    public ResponseEntity<Response> review(@PathVariable("reportId") Long reportId,
                                            @RequestBody ApprovalRequest req) {
         return ResponseEntity.ok(reportService.reviewReport(reportId, req));
     }

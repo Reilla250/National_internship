@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+import { Sun, Moon } from "lucide-react";
 import { clsx } from "clsx";
+import NotificationBox from "./NotificationBox";
 
 const NAV = {
   STUDENT: [
@@ -63,13 +66,19 @@ const ROLE_COLOR = {
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
   const items = NAV[user?.role] || [];
   const bgGrad = ROLE_COLOR[user?.role] || "from-gray-700 to-gray-900";
 
-  const handleLogout = () => { logout(); navigate("/login"); };
+  const handleLogout = () => {
+    if (window.confirm("Are you sure you want to logout?")) {
+      logout();
+      navigate("/login");
+    }
+  };
 
   return (
     <aside className={clsx(
@@ -84,13 +93,23 @@ export default function Sidebar() {
             <p className="text-xs text-white/60 truncate">{ROLE_LABEL[user?.role]}</p>
           </div>
         )}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="ml-auto p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0"
-          title={collapsed ? "Expand" : "Collapse"}
-        >
-          {collapsed ? "▶" : "◀"}
-        </button>
+        <div className="flex items-center gap-1 sm:gap-2">
+          {user && <NotificationBox />}
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors"
+            title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
+          >
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0"
+            title={collapsed ? "Expand" : "Collapse"}
+          >
+            {collapsed ? "▶" : "◀"}
+          </button>
+        </div>
       </div>
 
       {/* Nav */}

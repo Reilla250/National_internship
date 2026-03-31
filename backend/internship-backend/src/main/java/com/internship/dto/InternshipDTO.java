@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class InternshipDTO {
 
     @Data
+    @com.fasterxml.jackson.annotation.JsonIgnoreProperties(ignoreUnknown = true)
     public static class CreateRequest {
         @NotBlank private String title;
         private String description;

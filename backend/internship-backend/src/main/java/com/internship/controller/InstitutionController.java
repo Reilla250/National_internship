@@ -12,18 +12,30 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/institution")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('INSTITUTION','ADMIN')")
 public class InstitutionController {
 
     private final InstitutionService institutionService;
 
+    @GetMapping
+    public ResponseEntity<List<com.internship.entity.Institution>> getAll() {
+        return ResponseEntity.ok(institutionService.getAllInstitutions());
+    }
+
     @GetMapping("/{institutionId}/students")
-    public ResponseEntity<List<Student>> getStudents(@PathVariable Long institutionId) {
+    @PreAuthorize("hasAnyRole('INSTITUTION','ADMIN')")
+    public ResponseEntity<List<Student>> getStudents(@PathVariable("institutionId") Long institutionId) {
         return ResponseEntity.ok(institutionService.getStudentsByInstitution(institutionId));
     }
 
+    @GetMapping("/students/all")
+    @PreAuthorize("hasAnyRole('INSTITUTION','ADMIN')")
+    public ResponseEntity<List<Student>> getAllStudents() {
+        return ResponseEntity.ok(institutionService.getAllStudents());
+    }
+
     @GetMapping("/{institutionId}/stats")
-    public ResponseEntity<Map<String, Object>> getStats(@PathVariable Long institutionId) {
+    @PreAuthorize("hasAnyRole('INSTITUTION','ADMIN')")
+    public ResponseEntity<Map<String, Object>> getStats(@PathVariable("institutionId") Long institutionId) {
         return ResponseEntity.ok(institutionService.getInstitutionStats(institutionId));
     }
 }

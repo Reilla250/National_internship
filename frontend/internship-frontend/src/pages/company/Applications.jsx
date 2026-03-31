@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { applicationAPI } from "../../services/api";
+import { applicationAPI, certificateAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import { Button, Badge, Card, Modal, Textarea, Select, Spinner, Empty } from "../../components/UI";
 import toast from "react-hot-toast";
@@ -12,6 +12,7 @@ export default function CompanyApplications() {
   const [modal, setModal]     = useState(false);
   const [form, setForm]       = useState({ status: "ACCEPTED", remarks: "" });
   const [saving, setSaving]   = useState(false);
+  const [issuing, setIssuing] = useState(false);
   const [filter, setFilter]   = useState("ALL");
 
   const load = () => {
@@ -31,6 +32,22 @@ export default function CompanyApplications() {
       load();
     } catch { toast.error("Failed to update"); }
     finally { setSaving(false); }
+  };
+
+  const handleIssueCertificate = async (app) => {
+    if (!window.confirm(`Issue completion certificate to ${app.studentName}?`)) return;
+    setIssuing(true);
+    try {
+      await certificateAPI.generate({
+        studentId: app.studentId,
+        internshipId: app.internshipId
+      });
+      toast.success("Certificate issued successfully!");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Already issued or failed");
+    } finally {
+      setIssuing(false);
+    }
   };
 
   const filtered = filter === "ALL" ? apps : apps.filter(a => a.status === filter);
@@ -65,6 +82,9 @@ export default function CompanyApplications() {
                 <div>
                   <p className="font-semibold text-gray-900">{a.studentName}</p>
                   <p className="text-sm text-gray-500">{a.internshipTitle}</p>
+                  <div className="text-xs text-primary-600 font-medium mt-1">
+                    {a.studentProgram} | {a.studentInstitution}
+                  </div>
                 </div>
                 <Badge status={a.status} />
               </div>
@@ -82,6 +102,12 @@ export default function CompanyApplications() {
                   Review Application
                 </Button>
               )}
+              {a.status === "ACCEPTED" && (
+                <Button size="sm" variant="outline" className="border-green-600 text-green-600 hover:bg-green-50"
+                  onClick={() => handleIssueCertificate(a)} loading={issuing}>
+                  🎓 Give Certificate
+                </Button>
+              )}
             </Card>
           ))}
         </div>
@@ -90,9 +116,15 @@ export default function CompanyApplications() {
       <Modal open={modal} onClose={() => setModal(false)} title="Review Application">
         {selected && (
           <div className="space-y-4">
-            <div className="bg-gray-50 rounded-lg p-4 text-sm space-y-1">
-              <p><span className="font-medium">Student:</span> {selected.studentName}</p>
-              <p><span className="font-medium">Internship:</span> {selected.internshipTitle}</p>
+            <div className="bg-gray-50 rounded-lg p-4 text-sm space-y-2 border border-gray-200">
+              <p><span className="font-medium text-gray-500">Student:</span> {selected.studentName}</p>
+              <p><span className="font-medium text-gray-500">Reg No:</span> {selected.studentRegistrationNumber}</p>
+              <p><span className="font-medium text-gray-500">Course:</span> {selected.studentProgram}</p>
+              <p><span className="font-medium text-gray-500">Institution:</span> {selected.studentInstitution}</p>
+              <p><span className="font-medium text-gray-500">Phone:</span> {selected.studentPhone}</p>
+              <div className="pt-2 mt-2 border-t border-gray-200">
+                <p><span className="font-medium text-gray-500">Internship:</span> {selected.internshipTitle}</p>
+              </div>
             </div>
             <Select label="Decision" value={form.status}
               onChange={e => setForm({ ...form, status: e.target.value })}>

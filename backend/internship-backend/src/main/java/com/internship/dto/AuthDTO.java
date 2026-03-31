@@ -21,8 +21,11 @@ public class AuthDTO {
         private String lastName;
         private String companyName;
         private Long institutionId;
+        private String newInstitutionName; // used when creating a brand-new institution on-the-fly
         private String program;
         private Long companyId;
+        private String registrationNumber;
+        private String phone;
     }
 
     @Data
@@ -46,5 +49,19 @@ public class AuthDTO {
             this.role = role;
             this.profileId = profileId;
         }
+    }
+
+    @Data
+    public static class ForgotPasswordRequest {
+        @NotBlank @Email
+        private String email;
+    }
+
+    @Data
+    public static class ResetPasswordRequest {
+        @NotBlank
+        private String token;
+        @NotBlank @Size(min = 6)
+        private String password;
     }
 }

@@ -1,202 +1,114 @@
+# National Digital Internship & Industry Collaboration Management System (NDIMS)
 
-National Internship
-Final Course Project
+A complete full-stack web platform for managing national internships and industry–academia collaboration.
 
-National Digital Internship and Industry Collaboration Management System NDIMS
+---
 
-A complete full stack web platform for managing national internships and industry academia collaboration
+## Tech Stack
 
-Tech Stack
+| Layer      | Technology                                             |
+|------------|-------------------------------------------------------|
+| Frontend   | React 18, React Router v6, Recharts, Tailwind CSS     |
+| Backend    | Java 17, Spring Boot 3.2, Spring Security + JWT       |
+| Database   | MySQL 8.0, Spring Data JPA / Hibernate                |
+| Auth       | JWT Bearer Tokens, BCrypt password hashing            |
 
-Frontend
-React 18
-React Router version 6
-Recharts
-Tailwind CSS
+---
 
-Backend
-Java 17
-Spring Boot 3.2
-Spring Security plus JWT
+## System Actors & Dashboards
 
-Database
-MySQL 8.0
-Spring Data JPA Hibernate
+| Actor        | Dashboard Pages                                                       |
+|--------------|-----------------------------------------------------------------------|
+| STUDENT      | Dashboard, Browse Internships, Applications, Weekly Reports, Evaluations, Certificates |
+| COMPANY      | Dashboard, Manage Internships, Review Applications, Collaborations    |
+| SUPERVISOR   | Dashboard, My Students, Review Reports, Submit Evaluations            |
+| INSTITUTION  | Dashboard, Student Monitoring, Certificate Issue & Verify             |
+| GOVERNMENT   | National Dashboard (KPIs, charts, analytics), Reports tab             |
+| ADMIN        | Full Dashboard (user management, system stats, charts)                |
 
-Authentication
-JWT Bearer Tokens
-BCrypt password hashing
+---
 
-System Actors and Dashboards
+## Project Structure
 
-Student
-Dashboard
-Browse Internships
-Applications
-Weekly Reports
-Evaluations
-Certificates
+```
+internship-system/
+├── database/
+│   └── schema.sql                     MySQL schema + seed data
+│
+├── backend/internship-backend/
+│   └── src/main/java/com/internship/
+│       ├── entity/         12 JPA entities
+│       ├── repository/     12 Spring Data repositories
+│       ├── service/        10 business logic services
+│       ├── controller/     10 REST controllers
+│       ├── dto/             7 DTO classes
+│       ├── security/        JWT filter, util, UserDetailsService
+│       ├── config/          Security config (CORS, RBAC)
+│       └── exception/       Global exception handler
+│
+└── frontend/internship-frontend/
+    └── src/
+        ├── context/         AuthContext (JWT state)
+        ├── services/        api.js (Axios + all endpoints)
+        ├── components/      Layout, Sidebar, UI components, ProtectedRoute
+        └── pages/
+            ├── auth/        Login, Register
+            ├── student/     Dashboard, BrowseInternships, Applications,
+            │                Reports, Evaluations, Certificates
+            ├── company/     Dashboard, Internships, Applications, Collaboration
+            ├── supervisor/  Dashboard, Students, Reports, Evaluations
+            ├── institution/ Dashboard, Students
+            ├── government/  Dashboard (Overview, Analytics, Report tabs)
+            └── admin/       Dashboard (Overview + User Management tabs)
+```
 
-Company
-Dashboard
-Manage Internships
-Review Applications
-Collaborations
+---
 
-Supervisor
-Dashboard
-My Students
-Review Reports
-Submit Evaluations
+## Quick Start
 
-Institution
-Dashboard
-Student Monitoring
-Certificate Issue and Verify
+### 1. Database
+```bash
+mysql -u root -p < database/schema.sql
+```
 
-Government
-National Dashboard with KPIs charts and analytics
-Reports tab
+### 2. Backend
+```bash
+cd backend/internship-backend
+./run.bat
+# API runs at http://localhost:8080
+```
 
-Admin
-Full Dashboard
-User management
-System statistics
-Charts
+### 3. Frontend
+```bash
+cd frontend/internship-frontend
+npm install
+npm start
+# App runs at http://localhost:3000
+```
 
-Project Structure
+---
 
-internship system
+## System Flow
 
-database folder contains schema SQL for MySQL schema and seed data
+1. **Student registers** and logs in.
+2. **Student searches** and applies for internships.
+3. **Company reviews** applications and accepts/rejects.
+4. **Student submits weekly reports** (Digital Logbook).
+5. **Supervisor reviews reports** and submits evaluations.
+6. **Institution validates** and issues certificates.
+7. **Certificate is downloadable** with unique verification code.
+8. **Government views national analytics** dashboard.
 
-backend internship backend folder
+---
 
-source main Java com internship
+## Security
 
-entity folder contains 12 JPA entities
-repository folder contains 12 Spring Data repositories
-service folder contains 10 business logic services
-controller folder contains 10 REST controllers
-dto folder contains 7 DTO classes
-security folder contains JWT filter utilities and user details service
-config folder contains security configuration CORS and RBAC
-exception folder contains global exception handler
+- **JWT authentication** for all protected routes.
+- **Role Based Access Control** using @PreAuthorize.
+- **BCrypt password hashing**.
+- **CORS configured** for React frontend.
+- **Global exception handling** with proper status codes.
 
-frontend internship frontend folder
+---
 
-source folder contains
-
-context folder for AuthContext JWT state
-services folder for API calls using Axios endpoints
-components folder for layout sidebar UI components protected routes
-pages folder
-
-auth pages login register
-
-student pages dashboard browse internships applications reports evaluations certificates
-
-company pages dashboard internships applications collaboration
-
-supervisor pages dashboard students reports evaluations
-
-institution pages dashboard students
-
-government pages dashboard overview analytics reports tabs
-
-admin pages dashboard overview user management tabs
-
-Quick Start
-
-Database setup
-Run MySQL command to import schema SQL file from database folder
-
-Backend setup
-Go to backend internship backend folder
-Update database credentials in application properties file
-Set MySQL username and password
-Run Maven Spring Boot application
-API runs on localhost port 8080
-
-Frontend setup
-Go to frontend internship frontend folder
-Run npm install
-Run npm start
-Application runs on localhost port 3000
-
-API Endpoints
-
-Authentication
-POST api auth register register user
-POST api auth login login and return JWT token
-
-Internships
-GET api internships get all internships
-GET api internships search public search
-POST api internships company id create internship company role
-PUT api internships id update internship company role
-PATCH api internships id status update status company role
-DELETE api internships id delete internship company role
-
-Applications
-POST api applications student id apply student role
-GET api applications student id view student applications
-GET api applications company id view company applications
-PATCH api applications id status update application company role
-
-Reports
-POST api reports student id submit report student role
-GET api reports student id view reports student and supervisor
-GET api reports internship id supervisor view reports
-PATCH api reports id review supervisor review report
-
-Evaluations
-POST api evaluations supervisor id submit evaluation supervisor role
-GET api evaluations student id view student evaluations
-GET api evaluations supervisor id view supervisor evaluations
-
-Certificates
-POST api certificates generate institution role
-GET api certificates student id view certificates student role
-GET api certificates verify code public verification
-
-Collaborations
-GET api collaborations view all
-POST api collaborations create company or institution role
-PATCH api collaborations id status update company or institution role
-
-Dashboard
-GET api government stats government and admin role
-GET api admin stats admin role
-GET api admin users admin role
-
-System Flow
-
-Student registers and logs in
-Student searches internships
-Student applies for internship
-Company reviews applications and accepts or rejects
-Student submits weekly reports as digital logbook
-Supervisor reviews reports and submits evaluation
-Institution validates internship and issues certificate
-Certificate is downloadable with unique verification code
-Government views national analytics dashboard
-
-Security
-
-JWT authentication for all protected routes
-Role based access control using PreAuthorize
-BCrypt password hashing
-CORS configured for React frontend
-Global exception handling with proper status codes
-
-Future Enhancements
-
-Mobile application using React Native
-AI based internship matching system
-National digital ID integration
-Real time notifications using WebSocket
-HR platform integrations
-Email notification system
-
-
+*Built for Rwanda's National Workforce Development — NDIMS v1.0*

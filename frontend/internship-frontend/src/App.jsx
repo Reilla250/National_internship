@@ -2,12 +2,15 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 
 // Auth
 import Login    from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 // Student
 import StudentDashboard    from "./pages/student/Dashboard";
@@ -52,80 +55,84 @@ function Unauthorized() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Toaster position="top-right" toastOptions={{ duration: 3500 }} />
-        <Routes>
-          {/* Public */}
-          <Route path="/"             element={<Navigate to="/login" replace />} />
-          <Route path="/login"        element={<Login />} />
-          <Route path="/register"     element={<Register />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Toaster position="top-right" toastOptions={{ duration: 3500 }} />
+          <Routes>
+            {/* Public */}
+            <Route path="/"             element={<Navigate to="/login" replace />} />
+            <Route path="/login"        element={<Login />} />
+            <Route path="/register"     element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password"  element={<ResetPassword />} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
 
-          {/* Student */}
-          <Route element={<ProtectedRoute roles={["STUDENT"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/student/dashboard"    element={<StudentDashboard />} />
-              <Route path="/student/internships"  element={<BrowseInternships />} />
-              <Route path="/student/applications" element={<StudentApplications />} />
-              <Route path="/student/reports"      element={<StudentReports />} />
-              <Route path="/student/evaluations"  element={<StudentEvaluations />} />
-              <Route path="/student/certificates" element={<StudentCertificates />} />
+            {/* Student */}
+            <Route element={<ProtectedRoute roles={["STUDENT"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/student/dashboard"    element={<StudentDashboard />} />
+                <Route path="/student/internships"  element={<BrowseInternships />} />
+                <Route path="/student/applications" element={<StudentApplications />} />
+                <Route path="/student/reports"      element={<StudentReports />} />
+                <Route path="/student/evaluations"  element={<StudentEvaluations />} />
+                <Route path="/student/certificates" element={<StudentCertificates />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* Company */}
-          <Route element={<ProtectedRoute roles={["COMPANY"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/company/dashboard"     element={<CompanyDashboard />} />
-              <Route path="/company/internships"   element={<CompanyInternships />} />
-              <Route path="/company/applications"  element={<CompanyApplications />} />
-              <Route path="/company/collaboration" element={<CompanyCollaboration />} />
+            {/* Company */}
+            <Route element={<ProtectedRoute roles={["COMPANY"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/company/dashboard"     element={<CompanyDashboard />} />
+                <Route path="/company/internships"   element={<CompanyInternships />} />
+                <Route path="/company/applications"  element={<CompanyApplications />} />
+                <Route path="/company/collaboration" element={<CompanyCollaboration />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* Supervisor */}
-          <Route element={<ProtectedRoute roles={["SUPERVISOR"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/supervisor/dashboard"   element={<SupervisorDashboard />} />
-              <Route path="/supervisor/students"    element={<SupervisorStudents />} />
-              <Route path="/supervisor/reports"     element={<SupervisorReports />} />
-              <Route path="/supervisor/evaluations" element={<SupervisorEvaluations />} />
+            {/* Supervisor */}
+            <Route element={<ProtectedRoute roles={["SUPERVISOR"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/supervisor/dashboard"   element={<SupervisorDashboard />} />
+                <Route path="/supervisor/students"    element={<SupervisorStudents />} />
+                <Route path="/supervisor/reports"     element={<SupervisorReports />} />
+                <Route path="/supervisor/evaluations" element={<SupervisorEvaluations />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* Institution */}
-          <Route element={<ProtectedRoute roles={["INSTITUTION"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/institution/dashboard"    element={<InstitutionDashboard />} />
-              <Route path="/institution/students"     element={<InstitutionStudents />} />
-              <Route path="/institution/reports"      element={<InstitutionStudents />} />
-              <Route path="/institution/certificates" element={<InstitutionDashboard />} />
+            {/* Institution */}
+            <Route element={<ProtectedRoute roles={["INSTITUTION"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/institution/dashboard"    element={<InstitutionDashboard />} />
+                <Route path="/institution/students"     element={<InstitutionStudents />} />
+                <Route path="/institution/reports"      element={<InstitutionStudents />} />
+                <Route path="/institution/certificates" element={<InstitutionDashboard />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* Government */}
-          <Route element={<ProtectedRoute roles={["GOVERNMENT"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/government/dashboard" element={<GovernmentDashboard />} />
-              <Route path="/government/stats"     element={<GovernmentDashboard />} />
+            {/* Government */}
+            <Route element={<ProtectedRoute roles={["GOVERNMENT"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/government/dashboard" element={<GovernmentDashboard />} />
+                <Route path="/government/stats"     element={<GovernmentDashboard />} />
+              </Route>
             </Route>
-          </Route>
 
-          {/* Admin */}
-          <Route element={<ProtectedRoute roles={["ADMIN"]} />}>
-            <Route element={<Layout />}>
-              <Route path="/admin/dashboard"    element={<AdminDashboard />} />
-              <Route path="/admin/users"        element={<AdminDashboard />} />
-              <Route path="/admin/internships"  element={<CompanyInternships />} />
-              <Route path="/admin/applications" element={<CompanyApplications />} />
-              <Route path="/admin/certificates" element={<InstitutionDashboard />} />
+            {/* Admin */}
+            <Route element={<ProtectedRoute roles={["ADMIN"]} />}>
+              <Route element={<Layout />}>
+                <Route path="/admin/dashboard"    element={<AdminDashboard />} />
+                <Route path="/admin/users"        element={<AdminDashboard />} />
+                <Route path="/admin/internships"  element={<CompanyInternships />} />
+                <Route path="/admin/applications" element={<CompanyApplications />} />
+                <Route path="/admin/certificates" element={<InstitutionDashboard />} />
+              </Route>
             </Route>
-          </Route>
 
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

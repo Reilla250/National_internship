@@ -22,48 +22,48 @@ public class InternshipController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getById(@PathVariable Long id) {
+    public ResponseEntity<Response> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(internshipService.getById(id));
     }
 
     @GetMapping("/search")
     public ResponseEntity<List<Response>> search(
-            @RequestParam(required = false) String sector,
-            @RequestParam(required = false) String location,
-            @RequestParam(required = false) String keyword) {
+            @RequestParam(name = "sector", required = false) String sector,
+            @RequestParam(name = "location", required = false) String location,
+            @RequestParam(name = "keyword", required = false) String keyword) {
         return ResponseEntity.ok(internshipService.search(sector, location, keyword));
     }
 
     @GetMapping("/company/{companyId}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<List<Response>> getByCompany(@PathVariable Long companyId) {
+    public ResponseEntity<List<Response>> getByCompany(@PathVariable("companyId") Long companyId) {
         return ResponseEntity.ok(internshipService.getByCompany(companyId));
     }
 
     @PostMapping("/company/{companyId}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<Response> create(@PathVariable Long companyId,
+    public ResponseEntity<Response> create(@PathVariable("companyId") Long companyId,
                                            @RequestBody CreateRequest req) {
         return ResponseEntity.ok(internshipService.create(companyId, req));
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<Response> update(@PathVariable Long id,
+    public ResponseEntity<Response> update(@PathVariable("id") Long id,
                                            @RequestBody CreateRequest req) {
         return ResponseEntity.ok(internshipService.update(id, req));
     }
 
     @PatchMapping("/{id}/status")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<Response> updateStatus(@PathVariable Long id,
-                                                 @RequestParam String status) {
+    public ResponseEntity<Response> updateStatus(@PathVariable("id") Long id,
+                                                 @RequestParam("status") String status) {
         return ResponseEntity.ok(internshipService.updateStatus(id, status));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         internshipService.delete(id);
         return ResponseEntity.noContent().build();
     }

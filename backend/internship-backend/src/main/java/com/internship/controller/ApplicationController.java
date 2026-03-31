@@ -1,6 +1,8 @@
 package com.internship.controller;
 
-import com.internship.dto.ApplicationDTO.*;
+import com.internship.dto.ApplicationDTO.CreateRequest;
+import com.internship.dto.ApplicationDTO.Response;
+import com.internship.dto.ApplicationDTO.StatusUpdate;
 import com.internship.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,32 +20,32 @@ public class ApplicationController {
 
     @PostMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','ADMIN')")
-    public ResponseEntity<Response> apply(@PathVariable Long studentId,
-                                          @RequestBody CreateRequest req) {
+    public ResponseEntity<Response> apply(@PathVariable("studentId") Long studentId,
+                                           @RequestBody CreateRequest req) {
         return ResponseEntity.ok(applicationService.apply(studentId, req));
     }
 
     @GetMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','ADMIN','INSTITUTION','SUPERVISOR')")
-    public ResponseEntity<List<Response>> getByStudent(@PathVariable Long studentId) {
+    public ResponseEntity<List<Response>> getByStudent(@PathVariable("studentId") Long studentId) {
         return ResponseEntity.ok(applicationService.getByStudent(studentId));
     }
 
     @GetMapping("/internship/{internshipId}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN','SUPERVISOR')")
-    public ResponseEntity<List<Response>> getByInternship(@PathVariable Long internshipId) {
+    public ResponseEntity<List<Response>> getByInternship(@PathVariable("internshipId") Long internshipId) {
         return ResponseEntity.ok(applicationService.getByInternship(internshipId));
     }
 
     @GetMapping("/company/{companyId}")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<List<Response>> getByCompany(@PathVariable Long companyId) {
+    public ResponseEntity<List<Response>> getByCompany(@PathVariable("companyId") Long companyId) {
         return ResponseEntity.ok(applicationService.getByCompany(companyId));
     }
 
     @PatchMapping("/{applicationId}/status")
     @PreAuthorize("hasAnyRole('COMPANY','ADMIN')")
-    public ResponseEntity<Response> updateStatus(@PathVariable Long applicationId,
+    public ResponseEntity<Response> updateStatus(@PathVariable("applicationId") Long applicationId,
                                                  @RequestBody StatusUpdate req) {
         return ResponseEntity.ok(applicationService.updateStatus(applicationId, req));
     }

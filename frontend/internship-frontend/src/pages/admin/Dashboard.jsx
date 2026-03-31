@@ -35,6 +35,15 @@ export default function AdminDashboard() {
     } catch { toast.error("Failed to update status"); }
   };
 
+  const handleDeleteUser = async (userId) => {
+    if (!window.confirm("Are you sure you want to PERMANENTLY delete this user and all their data? This cannot be undone.")) return;
+    try {
+      await adminAPI.deleteUser(userId);
+      toast.success("User deleted successfully");
+      load();
+    } catch { toast.error("Failed to delete user"); }
+  };
+
   if (loading) return <div className="flex justify-center py-20"><Spinner size="lg" /></div>;
 
   const sectorData = Object.entries(stats?.internshipsBySector || {}).map(([name, value]) => ({ name, value }));
@@ -48,8 +57,10 @@ export default function AdminDashboard() {
       <div className="flex gap-2 mb-6 flex-wrap">
         {["overview","users"].map(t => (
           <button key={t} onClick={() => setTab(t)}
-            className={`px-5 py-2 rounded-full text-sm font-medium capitalize transition-colors ${
-              tab === t ? "bg-primary-600 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+            className={`px-5 py-2 rounded-full text-sm font-medium capitalize transition-all duration-200 ${
+              tab === t 
+                ? "bg-primary-600 text-white shadow-md shadow-primary-500/20" 
+                : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50"
             }`}>{t}</button>
         ))}
       </div>
@@ -73,7 +84,7 @@ export default function AdminDashboard() {
                 <h2 className="section-title">Internships by Sector</h2>
                 <ResponsiveContainer width="100%" height={250}>
                   <BarChart data={sectorData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <CartesianGrid strokeDasharray="3 3" stroke={document.documentElement.classList.contains('dark') ? '#374151' : '#f0f0f0'} />
                     <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                     <YAxis tick={{ fontSize: 11 }} />
                     <Tooltip />
@@ -111,7 +122,9 @@ export default function AdminDashboard() {
               {["ALL","STUDENT","COMPANY","SUPERVISOR","INSTITUTION","GOVERNMENT","ADMIN"].map(r => (
                 <button key={r} onClick={() => setUserFilter(r)}
                   className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-                    userFilter === r ? "bg-primary-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    userFilter === r 
+                      ? "bg-primary-600 text-white" 
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
                   }`}>{r} ({r === "ALL" ? users.length : users.filter(u => u.role?.roleName === r).length})</button>
               ))}
             </div>
@@ -131,9 +144,9 @@ export default function AdminDashboard() {
                     <th className="text-left py-2 px-4">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                   {filteredUsers.map(u => (
-                    <tr key={u.userId} className="hover:bg-gray-50">
+                    <tr key={u.userId} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                       <td className="py-3 px-4 text-gray-400 text-xs">{u.userId}</td>
                       <td className="py-3 px-4 font-medium">{u.email}</td>
                       <td className="py-3 px-4">
@@ -145,11 +158,14 @@ export default function AdminDashboard() {
                       <td className="py-3 px-4 text-gray-400 text-xs">
                         {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}
                       </td>
-                      <td className="py-3 px-4">
+                      <td className="py-3 px-4 flex gap-2">
                         <Button size="sm"
                           variant={u.status === "ACTIVE" ? "danger" : "success"}
                           onClick={() => handleToggleUser(u)}>
                           {u.status === "ACTIVE" ? "Deactivate" : "Activate"}
+                        </Button>
+                        <Button size="sm" variant="outline-danger" onClick={() => handleDeleteUser(u.userId)}>
+                          Delete
                         </Button>
                       </td>
                     </tr>

@@ -22,6 +22,14 @@ public class InstitutionService {
         return studentRepository.findByInstitution_InstitutionId(institutionId);
     }
 
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    public List<com.internship.entity.Institution> getAllInstitutions() {
+        return institutionRepository.findAll();
+    }
+
     public Map<String, Object> getInstitutionStats(Long institutionId) {
         List<Student> students = studentRepository.findByInstitution_InstitutionId(institutionId);
         Map<String, Object> stats = new HashMap<>();

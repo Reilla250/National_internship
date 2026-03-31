@@ -16,19 +16,19 @@ public class CertificateController {
     private final CertificateService certificateService;
 
     @PostMapping("/generate")
-    @PreAuthorize("hasAnyRole('INSTITUTION','ADMIN')")
+    @PreAuthorize("hasAnyRole('INSTITUTION','ADMIN','COMPANY')")
     public ResponseEntity<Response> generate(@RequestBody GenerateRequest req) {
         return ResponseEntity.ok(certificateService.generate(req));
     }
 
     @GetMapping("/student/{studentId}")
     @PreAuthorize("hasAnyRole('STUDENT','INSTITUTION','ADMIN')")
-    public ResponseEntity<List<Response>> getByStudent(@PathVariable Long studentId) {
+    public ResponseEntity<List<Response>> getByStudent(@PathVariable("studentId") Long studentId) {
         return ResponseEntity.ok(certificateService.getByStudent(studentId));
     }
 
     @GetMapping("/verify/{verificationCode}")
-    public ResponseEntity<Response> verify(@PathVariable String verificationCode) {
+    public ResponseEntity<Response> verify(@PathVariable("verificationCode") String verificationCode) {
         return ResponseEntity.ok(certificateService.verify(verificationCode));
     }
 }

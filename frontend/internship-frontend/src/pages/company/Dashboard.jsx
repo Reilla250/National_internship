@@ -47,15 +47,15 @@ export default function CompanyDashboard() {
           </div>
           <div className="space-y-3">
             {internships.slice(0,5).map(i => (
-              <div key={i.internshipId} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div key={i.internshipId} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg transition-colors">
                 <div>
-                  <p className="font-medium text-sm">{i.title}</p>
-                  <p className="text-xs text-gray-400">{i.location} · {i.slots} slots</p>
+                  <p className="font-medium text-sm text-gray-900 dark:text-white uppercase">{i.title}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{i.location} · {i.slots} slots</p>
                 </div>
                 <Badge status={i.status} />
               </div>
             ))}
-            {internships.length === 0 && <p className="text-gray-400 text-sm text-center py-4">No internships posted yet</p>}
+            {internships.length === 0 && <p className="text-gray-400 dark:text-gray-500 text-sm text-center py-4">No internships posted yet</p>}
           </div>
         </Card>
 
@@ -66,15 +66,15 @@ export default function CompanyDashboard() {
           </div>
           <div className="space-y-3">
             {applications.slice(0,5).map(a => (
-              <div key={a.applicationId} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+              <div key={a.applicationId} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg transition-colors">
                 <div>
-                  <p className="font-medium text-sm">{a.studentName}</p>
-                  <p className="text-xs text-gray-400">{a.internshipTitle}</p>
+                  <p className="font-medium text-sm text-gray-900 dark:text-white uppercase">{a.studentName}</p>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{a.internshipTitle}</p>
                 </div>
                 <Badge status={a.status} />
               </div>
             ))}
-            {applications.length === 0 && <p className="text-gray-400 text-sm text-center py-4">No applications yet</p>}
+            {applications.length === 0 && <p className="text-gray-400 dark:text-gray-500 text-sm text-center py-4">No applications yet</p>}
           </div>
         </Card>
       </div>

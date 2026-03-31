@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { adminAPI } from "../../services/api";
+import { adminAPI, institutionAPI } from "../../services/api";
 import { Button, Input, Select, Modal } from "../../components/UI";
 import toast from "react-hot-toast";
+import { Eye, EyeOff } from "lucide-react";
 
 const ROLES = ["STUDENT", "COMPANY", "SUPERVISOR", "INSTITUTION", "GOVERNMENT", "ADMIN"];
 
@@ -9,23 +10,37 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
-    roleName: "STUDENT",
+    roleName: "COMPANY",
     firstName: "",
     lastName: "",
     companyName: "",
     program: "",
+    registrationNumber: "",
+    phone: "",
     institutionId: null,
     companyId: null
   });
   const [companies, setCompanies] = useState([]);
+  const [institutions, setInstitutions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   React.useEffect(() => {
     if (isOpen) {
       fetchCompanies();
+      fetchInstitutions();
     }
   }, [isOpen]);
+
+  const fetchInstitutions = async () => {
+    try {
+      const { data } = await institutionAPI.getAll();
+      setInstitutions(data);
+    } catch (err) {
+      console.error("Failed to fetch institutions", err);
+    }
+  };
 
   const fetchCompanies = async () => {
     try {
@@ -62,11 +77,12 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
     setForm({
       email: "",
       password: "",
-      roleName: "STUDENT",
+      roleName: "COMPANY",
       firstName: "",
       lastName: "",
       companyName: "",
-      program: "",
+      registrationNumber: "",
+      phone: "",
       institutionId: null,
       companyId: null
     });
@@ -77,7 +93,7 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
   if (!isOpen) return null;
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} title="Create New User">
+    <Modal open={isOpen} onClose={handleClose} title="Create New User">
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3 mb-4">
           {error}
@@ -91,7 +107,23 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
 
         <div className="grid grid-cols-2 gap-4">
           <Input label="Email" type="email" name="email" value={form.email} onChange={set} required />
-          <Input label="Password" type="password" name="password" value={form.password} onChange={set} required />
+          <Input 
+            label="Password" 
+            type={showPassword ? "text" : "password"} 
+            name="password" 
+            value={form.password} 
+            onChange={set} 
+            required 
+            suffix={
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-gray-400 hover:text-primary-600 focus:outline-none"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            }
+          />
         </div>
 
         {(form.roleName === "STUDENT" || form.roleName === "SUPERVISOR") && (
@@ -103,16 +135,36 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
 
         {form.roleName === "STUDENT" && (
           <>
-            <Input label="Program / Field of Study" name="program" value={form.program} onChange={set} />
-            <Input label="Institution ID" type="number" name="institutionId" value={form.institutionId || ""} onChange={set} />
+            <div className="grid grid-cols-2 gap-4">
+              <Select label="Institution" name="institutionId" value={form.institutionId || ""} onChange={set} required>
+                <option value="">Select Institution...</option>
+                {institutions.map(inst => (
+                  <option key={inst.institutionId} value={inst.institutionId}>{inst.name}</option>
+                ))}
+              </Select>
+              <Input label="Program / Field of Study" name="program" value={form.program} onChange={set} />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <Input label="Registration Number" name="registrationNumber" value={form.registrationNumber} onChange={set} required />
+              <Input label="Phone Number" name="phone" value={form.phone} onChange={set} required />
+            </div>
           </>
         )}
 
         {form.roleName === "SUPERVISOR" && (
-          <Select label="Assigned Company" name="companyId" value={form.companyId || ""} onChange={set}>
-            <option value="">Select Company...</option>
-            {companies.map(c => <option key={c.companyId} value={c.companyId}>{c.companyName}</option>)}
-          </Select>
+          <div className="grid grid-cols-2 gap-4">
+            <Select label="Assigned Company" name="companyId" value={form.companyId || ""} onChange={set}>
+              <option value="">Select Company...</option>
+              {companies.map(c => <option key={c.companyId} value={c.companyId}>{c.companyName}</option>)}
+            </Select>
+            <Select label="Institution" name="institutionId" value={form.institutionId || ""} onChange={set} required>
+              <option value="">Select Institution...</option>
+              {institutions.map(inst => (
+                <option key={inst.institutionId} value={inst.institutionId}>{inst.name}</option>
+              ))}
+            </Select>
+            <Input label="Phone Number" name="phone" value={form.phone || ""} onChange={set} />
+          </div>
         )}
 
         {form.roleName === "COMPANY" && (

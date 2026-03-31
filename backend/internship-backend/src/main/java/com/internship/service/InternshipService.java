@@ -12,10 +12,13 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@lombok.extern.slf4j.Slf4j
 public class InternshipService {
 
     private final InternshipRepository internshipRepository;
     private final CompanyRepository companyRepository;
+    private final NotificationRepository notificationRepository;
+    private final StudentRepository studentRepository;
 
     @Transactional
     public Response create(Long companyId, CreateRequest req) {
@@ -35,7 +38,19 @@ public class InternshipService {
                 .status("OPEN")
                 .build();
 
-        return toResponse(internshipRepository.save(internship));
+        Internship savedInternship = internshipRepository.save(internship);
+
+        // Notify all students about the new internship
+        List<Student> students = studentRepository.findAll();
+        List<Notification> notifications = students.stream().map(student -> Notification.builder()
+                .recipient(student.getUser())
+                .message(String.format("New Internship Published: %s by %s", savedInternship.getTitle(), company.getCompanyName()))
+                .type("INFO")
+                .isRead(false)
+                .build()).toList();
+        notificationRepository.saveAll(notifications);
+
+        return toResponse(savedInternship);
     }
 
     public List<Response> getAll() {
@@ -59,8 +74,10 @@ public class InternshipService {
 
     @Transactional
     public Response update(Long id, CreateRequest req) {
+        log.info("Updating internship {}: {}", id, req);
         Internship i = internshipRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Internship not found"));
+        
         i.setTitle(req.getTitle());
         i.setDescription(req.getDescription());
         i.setRequiredSkills(req.getRequiredSkills());
@@ -69,7 +86,10 @@ public class InternshipService {
         i.setStartDate(req.getStartDate());
         i.setEndDate(req.getEndDate());
         if (req.getSlots() != null) i.setSlots(req.getSlots());
-        return toResponse(internshipRepository.save(i));
+        
+        Internship saved = internshipRepository.saveAndFlush(i);
+        log.info("Internship {} updated successfully", id);
+        return toResponse(saved);
     }
 
     @Transactional

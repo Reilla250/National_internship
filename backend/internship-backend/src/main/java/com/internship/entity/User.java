@@ -22,6 +22,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
+    @com.fasterxml.jackson.annotation.JsonIgnore
     @Column(nullable = false, length = 255)
     private String password;
 
@@ -38,4 +39,9 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @Column(length = 255)
+    private String resetToken;
+
+    private LocalDateTime resetTokenExpiry;
 }

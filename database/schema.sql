@@ -224,6 +224,37 @@ CREATE TABLE collaboration_projects (
 );
 
 -- -------------------------
+-- Notifications Table
+-- -------------------------
+CREATE TABLE notifications (
+    notification_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id         BIGINT NOT NULL,
+    message         VARCHAR(255) NOT NULL,
+    type            VARCHAR(50),
+    is_read         BOOLEAN DEFAULT FALSE,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_notifications_user FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE INDEX idx_notifications_user_id ON notifications(user_id);
+CREATE INDEX idx_notifications_is_read ON notifications(is_read);
+
+-- -------------------------
+-- Institution Staff Table
+-- -------------------------
+CREATE TABLE institution_staff (
+    staff_id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id        BIGINT NOT NULL UNIQUE,
+    institution_id BIGINT NOT NULL,
+    first_name     VARCHAR(100),
+    last_name      VARCHAR(100),
+    phone          VARCHAR(20),
+    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_staff_user FOREIGN KEY (user_id) REFERENCES users(user_id),
+    CONSTRAINT fk_staff_inst FOREIGN KEY (institution_id) REFERENCES institutions(institution_id)
+);
+
+-- -------------------------
 -- Seed Data
 -- -------------------------
 INSERT INTO institutions (name, type, address, contact_email) VALUES

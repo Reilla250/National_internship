@@ -1,7 +1,6 @@
 package com.internship.dto;
 
 import lombok.Data;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class ApplicationDTO {
@@ -24,5 +23,10 @@ public class ApplicationDTO {
         private String status;
         private String coverLetter;
         private String remarks;
+        // Extended student info for companies
+        private String studentPhone;
+        private String studentProgram;
+        private String studentInstitution;
+        private String studentRegistrationNumber;
     }
 }

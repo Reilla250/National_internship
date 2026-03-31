@@ -42,7 +42,7 @@ public class CertificateService {
                 .issueDate(LocalDate.now())
                 .certificateNumber(certNumber)
                 .verificationCode(verificationCode)
-                .issuedBy("National Digital Internship Management System")
+                .issuedBy(internship.getCompany().getCompanyName())
                 .build();
 
         return toResponse(certificateRepository.save(cert));

@@ -27,8 +27,10 @@ api.interceptors.response.use(
 );
 
 export const authAPI = {
-  register: (data) => api.post("/api/auth/register", data),
-  login:    (data) => api.post("/api/auth/login", data),
+  register:       (data) => api.post("/api/auth/register", data),
+  login:          (data) => api.post("/api/auth/login", data),
+  forgotPassword: (data) => api.post("/api/auth/forgot-password", data),
+  resetPassword:  (data) => api.post("/api/auth/reset-password", data),
 };
 
 export const internshipAPI = {
@@ -50,6 +52,12 @@ export const applicationAPI = {
   updateStatus:    (appId, data)      => api.patch(`/api/applications/${appId}/status`, data),
 };
 
+export const notificationAPI = {
+  getMyNotifications: () => api.get('/api/notifications'),
+  markAsRead: (id) => api.put(`/api/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/api/notifications/read-all'),
+};
+
 export const reportAPI = {
   submit:          (studentId, data)  => api.post(`/api/reports/student/${studentId}`, data),
   getByStudent:    (studentId)        => api.get(`/api/reports/student/${studentId}`),
@@ -61,6 +69,10 @@ export const evaluationAPI = {
   evaluate:        (supervisorId, data) => api.post(`/api/evaluations/supervisor/${supervisorId}`, data),
   getByStudent:    (studentId)          => api.get(`/api/evaluations/student/${studentId}`),
   getBySupervisor: (supervisorId)       => api.get(`/api/evaluations/supervisor/${supervisorId}`),
+};
+
+export const supervisorAPI = {
+  getStudents: (supervisorId) => api.get(`/api/supervisors/${supervisorId}/students`),
 };
 
 export const certificateAPI = {
@@ -83,6 +95,8 @@ export const collaborationAPI = {
 export const institutionAPI = {
   getStudents: (institutionId) => api.get(`/api/institution/${institutionId}/students`),
   getStats:    (institutionId) => api.get(`/api/institution/${institutionId}/stats`),
+  getAll:      ()                => api.get("/api/institution"),
+  getAllStudents: ()             => api.get("/api/institution/students/all"),
 };
 
 export const dashboardAPI = {
@@ -95,6 +109,7 @@ export const adminAPI = {
   getStats:      ()               => api.get("/api/admin/stats"),
   getCompanies:  ()               => api.get("/api/admin/companies"),
   createUser:    (data)           => api.post("/api/admin/users", data),
+  deleteUser:    (userId)         => api.delete(`/api/admin/users/${userId}`),
 };
 
 export default api;

@@ -23,8 +23,8 @@ public class AdminController {
     private final AuthService authService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(adminService.getAllUsers());
+    public List<User> getAllUsers() {
+        return adminService.getAllUsers();
     }
 
     @PostMapping("/users")
@@ -33,18 +33,24 @@ public class AdminController {
     }
 
     @PatchMapping("/users/{userId}/status")
-    public ResponseEntity<User> setUserStatus(@PathVariable Long userId,
-                                               @RequestParam String status) {
-        return ResponseEntity.ok(adminService.setUserStatus(userId, status));
+    public void setUserStatus(@PathVariable("userId") Long userId,
+                              @RequestParam("status") String status) {
+        adminService.setUserStatus(userId, status);
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long userId) {
+        adminService.deleteUser(userId);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/companies")
-    public ResponseEntity<List<com.internship.entity.Company>> getAllCompanies() {
-        return ResponseEntity.ok(adminService.getAllCompanies());
+    public List<com.internship.entity.Company> getCompanies() {
+        return adminService.getAllCompanies();
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<Map<String, Object>> getSystemStats() {
-        return ResponseEntity.ok(adminService.getSystemStats());
+    public Map<String, Object> getStats() {
+        return adminService.getSystemStats();
     }
 }

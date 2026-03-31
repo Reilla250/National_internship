@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { authAPI } from "../../services/api";
 import { Button, Input } from "../../components/UI";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function Login() {
   const { login } = useAuth();
@@ -10,6 +11,7 @@ export default function Login() {
   const [form, setForm]     = useState({ email: "", password: "" });
   const [error, setError]   = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -30,22 +32,26 @@ export default function Login() {
       };
       navigate(routes[data.role] || "/");
     } catch (err) {
-      setError(err.response?.data?.message || "Invalid email or password");
+      if (!err.response) {
+        setError("Server is offline. Please start the Backend in IntelliJ.");
+      } else {
+        setError(err.response.data?.message || "Invalid email or password");
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-900 to-primary-700 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
+    <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 flex items-center justify-center p-4 transition-colors duration-500">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 transition-all duration-300">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
             🎓
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">NDIMS</h1>
-          <p className="text-sm text-gray-500 mt-1">National Digital Internship Management System</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">NDIMS</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">National Digital Internship Management System</p>
         </div>
 
         {error && (
@@ -66,21 +72,35 @@ export default function Login() {
           />
           <Input
             label="Password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             value={form.password}
             onChange={handleChange}
             placeholder="••••••••"
             required
+            suffix={
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-gray-400 hover:text-primary-600 focus:outline-none"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            }
           />
+          <div className="flex justify-end">
+            <Link to="/forgot-password" size="sm" className="text-xs text-primary-600 hover:underline">
+              Forgot Password?
+            </Link>
+          </div>
           <Button type="submit" className="w-full" size="lg" loading={loading}>
             Sign In
           </Button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-6">
+        <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
           Don't have an account?{" "}
-          <Link to="/register" className="text-primary-600 font-medium hover:underline">
+          <Link to="/register" className="text-primary-600 dark:text-primary-400 font-medium hover:underline">
             Register here
           </Link>
         </p>

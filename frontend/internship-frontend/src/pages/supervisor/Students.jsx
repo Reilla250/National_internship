@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { applicationAPI, reportAPI, evaluationAPI } from "../../services/api";
+import { applicationAPI, reportAPI, evaluationAPI, supervisorAPI } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import { Card, Badge, Button, Modal, Spinner, Empty } from "../../components/UI";
 
@@ -7,6 +7,7 @@ export default function SupervisorStudents() {
   const { user } = useAuth();
   const supervisorId = user?.profileId;
   const [evals, setEvals]       = useState([]);
+  const [instStudents, setInstStudents] = useState([]);
   const [loading, setLoading]   = useState(true);
   // Load by internship reports
   const [internshipId, setInternshipId] = useState("");
@@ -15,9 +16,22 @@ export default function SupervisorStudents() {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    evaluationAPI.getBySupervisor(supervisorId)
-      .then(r => setEvals(r.data))
-      .finally(() => setLoading(false));
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const [evalRes, instRes] = await Promise.all([
+          evaluationAPI.getBySupervisor(supervisorId),
+          supervisorAPI.getStudents(supervisorId)
+        ]);
+        setEvals(evalRes.data);
+        setInstStudents(instRes.data);
+      } catch (err) {
+        console.error("Failed to load supervisor data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (supervisorId) fetchData();
   }, [supervisorId]);
 
   const loadReports = async () => {
@@ -40,6 +54,35 @@ export default function SupervisorStudents() {
   return (
     <div>
       <h1 className="page-title">My Students</h1>
+
+      {/* Institution Students Section */}
+      <Card className="mb-6">
+        <h2 className="section-title">Students from my Institution</h2>
+        {instStudents.length === 0 ? (
+          <Empty icon="🏫" title="No students found" description="No students registered from your institution yet" />
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {instStudents.map(s => (
+              <div key={s.studentId} className="border border-gray-100 rounded-xl p-4 hover:shadow-sm transition-shadow">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold text-lg">
+                    {s.firstName.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900">{s.firstName} {s.lastName}</p>
+                    <p className="text-xs text-gray-500">{s.program}</p>
+                    <p className="text-[10px] text-gray-400">Reg: {s.registrationNumber}</p>
+                  </div>
+                </div>
+                <div className="mt-3 pt-3 border-t border-gray-50 flex justify-between items-center text-xs">
+                  <span className="text-gray-400">📞 {s.phone || "No phone"}</span>
+                  <Badge status="ACTIVE" />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </Card>
 
       {/* Students from evaluations */}
       <Card className="mb-6">

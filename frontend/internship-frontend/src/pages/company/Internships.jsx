@@ -26,13 +26,25 @@ export default function CompanyInternships() {
   const openEdit = (i) => { setEditing(i); setForm({ ...i, slots: i.slots }); setModal(true); };
 
   const handleSave = async () => {
+    if (!form.title) return toast.error("Title is required");
     setSaving(true);
     try {
+      const payload = {
+        title: form.title,
+        description: form.description,
+        requiredSkills: form.requiredSkills,
+        location: form.location,
+        sector: form.sector,
+        startDate: form.startDate || null,
+        endDate: form.endDate || null,
+        slots: parseInt(form.slots) || 1
+      };
+
       if (editing) {
-        await internshipAPI.update(editing.internshipId, form);
+        await internshipAPI.update(editing.internshipId, payload);
         toast.success("Internship updated");
       } else {
-        await internshipAPI.create(companyId, form);
+        await internshipAPI.create(companyId, payload);
         toast.success("Internship posted!");
       }
       setModal(false); load();

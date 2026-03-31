@@ -22,18 +22,26 @@ export function Button({ children, variant = "primary", size = "md", className, 
 }
 
 // ── Input ─────────────────────────────────────────────
-export function Input({ label, error, className, ...props }) {
+export function Input({ label, error, className, suffix, ...props }) {
   return (
     <div className="w-full">
       {label && <label className="label">{label}</label>}
-      <input
-        className={clsx(
-          "input",
-          error && "border-red-400 focus:ring-red-400",
-          className
+      <div className="relative group">
+        <input
+          className={clsx(
+            "input",
+            suffix && "pr-10",
+            error && "border-red-400 focus:ring-red-400",
+            className
+          )}
+          {...props}
+        />
+        {suffix && (
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+            {suffix}
+          </div>
         )}
-        {...props}
-      />
+      </div>
       {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
     </div>
   );
@@ -93,8 +101,9 @@ export function Badge({ children, status }) {
 }
 
 // ── Modal ─────────────────────────────────────────────
-export function Modal({ open, onClose, title, children, size = "md" }) {
-  if (!open) return null;
+export function Modal({ open, isOpen, onClose, title, children, size = "md" }) {
+  const isModalOpen = open || isOpen;
+  if (!isModalOpen) return null;
   const sizes = { sm: "max-w-sm", md: "max-w-lg", lg: "max-w-2xl", xl: "max-w-4xl" };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
@@ -131,21 +140,21 @@ export function Empty({ icon, title, description }) {
 // ── Stats Card ────────────────────────────────────────
 export function StatCard({ icon, label, value, color = "blue" }) {
   const colors = {
-    blue:   "bg-blue-50 text-blue-600",
-    green:  "bg-green-50 text-green-600",
-    yellow: "bg-yellow-50 text-yellow-600",
-    purple: "bg-purple-50 text-purple-600",
-    red:    "bg-red-50 text-red-600",
+    blue:   "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400",
+    green:  "bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400",
+    yellow: "bg-yellow-50 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400",
+    purple: "bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400",
+    red:    "bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400",
   };
   return (
     <Card>
       <div className="flex items-center gap-4">
-        <div className={clsx("w-12 h-12 rounded-xl flex items-center justify-center text-2xl", colors[color])}>
+        <div className={clsx("w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-colors", colors[color])}>
           {icon}
         </div>
         <div>
-          <p className="text-sm text-gray-500">{label}</p>
-          <p className="text-2xl font-bold text-gray-900">{value ?? "—"}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">{value ?? "—"}</p>
         </div>
       </div>
     </Card>

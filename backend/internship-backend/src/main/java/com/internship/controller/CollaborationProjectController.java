@@ -21,17 +21,17 @@ public class CollaborationProjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Response> getById(@PathVariable Long id) {
+    public ResponseEntity<Response> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     @GetMapping("/company/{companyId}")
-    public ResponseEntity<List<Response>> getByCompany(@PathVariable Long companyId) {
+    public ResponseEntity<List<Response>> getByCompany(@PathVariable("companyId") Long companyId) {
         return ResponseEntity.ok(service.getByCompany(companyId));
     }
 
     @GetMapping("/institution/{institutionId}")
-    public ResponseEntity<List<Response>> getByInstitution(@PathVariable Long institutionId) {
+    public ResponseEntity<List<Response>> getByInstitution(@PathVariable("institutionId") Long institutionId) {
         return ResponseEntity.ok(service.getByInstitution(institutionId));
     }
 
@@ -43,15 +43,15 @@ public class CollaborationProjectController {
 
     @PatchMapping("/{id}/status")
     @PreAuthorize("hasAnyRole('COMPANY','INSTITUTION','ADMIN')")
-    public ResponseEntity<Response> updateStatus(@PathVariable Long id,
-                                                  @RequestParam String status,
-                                                  @RequestParam(required = false) String outcomes) {
+    public ResponseEntity<Response> updateStatus(@PathVariable("id") Long id,
+                                                  @RequestParam("status") String status,
+                                                  @RequestParam(name = "outcomes", required = false) String outcomes) {
         return ResponseEntity.ok(service.updateStatus(id, status, outcomes));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
