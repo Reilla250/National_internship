@@ -1,0 +1,889 @@
+{
+	"info": {
+		"_postman_id": "complete-api-collection",
+		"name": "NDIICMS COMPLETE API COLLECTION",
+		"description": "Complete API collection for National Digital Internship & Industry Collaboration Management System - All endpoints included",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🔐 AUTHENTICATION",
+			"item": [
+				{
+					"name": "1. Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('authToken', response.token);",
+									"    pm.collectionVariables.set('adminEmail', response.email);",
+									"    pm.collectionVariables.set('adminRole', response.role);",
+									"    pm.collectionVariables.set('adminProfileId', response.profileId);",
+									"    console.log('Admin token saved:', response.token.substring(0, 50) + '...');",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@internship.com\",\n  \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Student Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('studentToken', response.token);",
+									"    pm.collectionVariables.set('studentEmail', response.email);",
+									"    pm.collectionVariables.set('studentRole', response.role);",
+									"    pm.collectionVariables.set('studentProfileId', response.profileId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"student@internship.com\",\n  \"password\": \"student123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Company Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('companyToken', response.token);",
+									"    pm.collectionVariables.set('companyEmail', response.email);",
+									"    pm.collectionVariables.set('companyRole', response.role);",
+									"    pm.collectionVariables.set('companyProfileId', response.profileId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"company@internship.com\",\n  \"password\": \"company123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Supervisor Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.collectionVariables.set('supervisorToken', response.token);",
+									"    pm.collectionVariables.set('supervisorEmail', response.email);",
+									"    pm.collectionVariables.set('supervisorRole', response.role);",
+									"    pm.collectionVariables.set('supervisorProfileId', response.profileId);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"supervisor@internship.com\",\n  \"password\": \"supervisor123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Register New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"newuser@test.com\",\n  \"password\": \"newpassword123\",\n  \"roleName\": \"STUDENT\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"program\": \"Computer Science\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "auth", "register"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "👑 ADMIN ENDPOINTS",
+			"item": [
+				{
+					"name": "1. Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Create New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admincreated@test.com\",\n  \"password\": \"password123\",\n  \"roleName\": \"STUDENT\",\n  \"firstName\": \"Admin\",\n  \"lastName\": \"Created\",\n  \"program\": \"Information Technology\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Update User Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users/2/status?status=INACTIVE",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "users", "2", "status"],
+							"query": [
+								{
+									"key": "status",
+									"value": "INACTIVE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users/3",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "users", "3"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Get All Companies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/companies",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "companies"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Get System Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/stats",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "admin", "stats"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🎯 INTERNSHIPS",
+			"item": [
+				{
+					"name": "1. Get All Internships",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/internships",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Internship by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/internships/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Search Internships",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/internships/search?sector=Technology&location=Kigali",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "search"],
+							"query": [
+								{
+									"key": "sector",
+									"value": "Technology"
+								},
+								{
+									"key": "location",
+									"value": "Kigali"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Create Internship (Company)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Software Development Internship\",\n  \"description\": \"Join our team to develop cutting-edge software solutions\",\n  \"requiredSkills\": \"Java, Spring Boot, React, SQL\",\n  \"location\": \"Kigali, Rwanda\",\n  \"sector\": \"Technology\",\n  \"startDate\": \"2024-06-01\",\n  \"endDate\": \"2024-12-01\",\n  \"slots\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/internships/company/{{companyProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "company", "{{companyProfileId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Update Internship",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Software Development Internship\",\n  \"description\": \"Join our team to develop cutting-edge software solutions - Updated description\",\n  \"requiredSkills\": \"Java, Spring Boot, React, SQL, Microservices\",\n  \"location\": \"Kigali, Rwanda\",\n  \"sector\": \"Technology\",\n  \"startDate\": \"2024-06-01\",\n  \"endDate\": \"2024-12-01\",\n  \"slots\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/internships/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Update Internship Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/internships/1/status?status=CLOSED",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "1", "status"],
+							"query": [
+								{
+									"key": "status",
+									"value": "CLOSED"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Delete Internship",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/internships/2",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "2"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8. Get Company Internships",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/internships/company/{{companyProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "internships", "company", "{{companyProfileId}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📝 APPLICATIONS",
+			"item": [
+				{
+					"name": "1. Apply for Internship",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"internshipId\": 1,\n  \"coverLetter\": \"I am very interested in this internship opportunity. I have strong skills in Java and web development.\",\n  \"remarks\": \"Available to start immediately\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/applications/student/{{studentProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "applications", "student", "{{studentProfileId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Student Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/applications/student/{{studentProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "applications", "student", "{{studentProfileId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Internship Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/applications/internship/1",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "applications", "internship", "1"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Get Company Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/applications/company/{{companyProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "applications", "company", "{{companyProfileId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Update Application Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{companyToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"ACCEPTED\",\n  \"remarks\": \"Excellent candidate profile. We'd like to schedule an interview.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/applications/1/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "applications", "1", "status"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🏆 CERTIFICATES",
+			"item": [
+				{
+					"name": "1. Generate Certificate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"studentId\": 1,\n  \"internshipId\": 1,\n  \"issuedBy\": \"TechCorp Solutions & University of Rwanda\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/certificates/generate",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "certificates", "generate"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get Student Certificates",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{studentToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/certificates/student/{{studentProfileId}}",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "certificates", "student", "{{studentProfileId}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Verify Certificate",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/api/certificates/verify/VERIFY123456",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "certificates", "verify", "VERIFY123456"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🏛️ GOVERNMENT",
+			"item": [
+				{
+					"name": "1. Get National Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/government/stats",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["api", "government", "stats"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🏥 HEALTH CHECKS",
+			"item": [
+				{
+					"name": "1. Root API",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": [""]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. H2 Console",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "http://localhost:8080/h2-console",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8080",
+							"path": ["h2-console"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "adminEmail",
+			"value": ""
+		},
+		{
+			"key": "adminRole",
+			"value": ""
+		},
+		{
+			"key": "adminProfileId",
+			"value": ""
+		},
+		{
+			"key": "studentToken",
+			"value": ""
+		},
+		{
+			"key": "studentEmail",
+			"value": ""
+		},
+		{
+			"key": "studentRole",
+			"value": ""
+		},
+		{
+			"key": "studentProfileId",
+			"value": ""
+		},
+		{
+			"key": "companyToken",
+			"value": ""
+		},
+		{
+			"key": "companyEmail",
+			"value": ""
+		},
+		{
+			"key": "companyRole",
+			"value": ""
+		},
+		{
+			"key": "companyProfileId",
+			"value": ""
+		},
+		{
+			"key": "supervisorToken",
+			"value": ""
+		},
+		{
+			"key": "supervisorEmail",
+			"value": ""
+		},
+		{
+			"key": "supervisorRole",
+			"value": ""
+		},
+		{
+			"key": "supervisorProfileId",
+			"value": ""
+		}
+	]
+}

@@ -52,6 +52,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
+    @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> handleJsonParseError(org.springframework.http.converter.HttpMessageNotReadableException ex, jakarta.servlet.http.HttpServletRequest request) {
+        log.error("JSON parse error on URI {}: {}", request.getRequestURI(), ex.getMessage());
+        String message = "Invalid JSON format. Please check your request body.";
+        if (ex.getMessage().contains("Required request body is missing")) {
+            message = "Request body is missing. Please include JSON data in your request.";
+        } else if (ex.getMessage().contains("JSON parse error")) {
+            message = "JSON parse error: Invalid JSON syntax. Please check quotes and commas.";
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse(400, message, LocalDateTime.now()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex, jakarta.servlet.http.HttpServletRequest request) {
         log.error("Unhandled exception occurred on URI {}: {}", request.getRequestURI(), ex.getMessage(), ex);

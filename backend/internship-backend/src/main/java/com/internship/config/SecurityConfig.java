@@ -45,10 +45,11 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/favicon.ico").permitAll()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/auth/**", "/api/institution/**").permitAll()
                 .requestMatchers("/api/certificates/verify/**").permitAll()
-                .requestMatchers("/api/internships/search").permitAll()
+                .requestMatchers("/api/internships/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/government/**").hasAnyRole("ADMIN", "GOVERNMENT")
                 .anyRequest().authenticated()
