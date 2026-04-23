@@ -4,6 +4,7 @@ import { authAPI } from "../../services/api";
 import { Button, Input, Card } from "../../components/UI";
 import { Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
+import { useBackgroundSlideshow } from "../../hooks/useBackgroundSlideshow";
 
 export default function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -14,6 +15,7 @@ export default function ResetPassword() {
   const [confirm, setConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { backgroundStyle, imageLoaded } = useBackgroundSlideshow();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,8 +35,16 @@ export default function ResetPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 flex items-center justify-center p-4 transition-colors duration-500">
-      <Card className="max-w-md w-full p-8 transition-all duration-300">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      
+      {/* Auto-playing background slideshow */}
+      <div 
+        className="absolute inset-0 transition-all duration-1000 ease-in-out"
+        style={backgroundStyle}
+      />
+      <div className="absolute inset-0 bg-black/20" />
+      
+      <div className="relative z-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full p-8 transition-all duration-300">
         <div className="text-center mb-6">
           <div className="text-4xl mb-3">🛡️</div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Reset Password</h1>
@@ -92,7 +102,7 @@ export default function ResetPassword() {
             </Button>
           </form>
         )}
-      </Card>
+      </div>
     </div>
   );
 }

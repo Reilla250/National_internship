@@ -7,13 +7,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
 
 // Auth
-import Login    from "./pages/auth/Login";
+import Login    from "./pages/auth/LoginModern";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 
 // Student
-import StudentDashboard    from "./pages/student/Dashboard";
+import StudentDashboard    from "./pages/student/DashboardModern";
 import BrowseInternships   from "./pages/student/BrowseInternships";
 import StudentApplications from "./pages/student/Applications";
 import StudentReports      from "./pages/student/Reports";
@@ -21,26 +21,26 @@ import StudentEvaluations  from "./pages/student/Evaluations";
 import StudentCertificates from "./pages/student/Certificates";
 
 // Company
-import CompanyDashboard     from "./pages/company/Dashboard";
+import CompanyDashboard     from "./pages/company/DashboardModern";
 import CompanyInternships   from "./pages/company/Internships";
 import CompanyApplications  from "./pages/company/Applications";
 import CompanyCollaboration from "./pages/company/Collaboration";
 
 // Supervisor
-import SupervisorDashboard   from "./pages/supervisor/Dashboard";
+import SupervisorDashboard   from "./pages/supervisor/DashboardModern";
 import SupervisorStudents    from "./pages/supervisor/Students";
 import SupervisorReports     from "./pages/supervisor/Reports";
 import SupervisorEvaluations from "./pages/supervisor/Evaluations";
 
 // Institution
-import InstitutionDashboard from "./pages/institution/Dashboard";
+import InstitutionDashboard from "./pages/institution/DashboardModern";
 import InstitutionStudents  from "./pages/institution/Students";
 
 // Government
-import GovernmentDashboard from "./pages/government/Dashboard";
+import GovernmentDashboard from "./pages/government/DashboardModern";
 
 // Admin
-import AdminDashboard from "./pages/admin/Dashboard";
+import AdminDashboard from "./pages/admin/DashboardModern";
 
 function Unauthorized() {
   return (

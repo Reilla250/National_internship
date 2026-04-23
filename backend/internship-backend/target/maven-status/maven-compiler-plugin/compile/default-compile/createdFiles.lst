@@ -7,6 +7,7 @@ com\internship\entity\Institution$InstitutionBuilder.class
 com\internship\dto\CollaborationProjectDTO.class
 com\internship\dto\ApplicationDTO.class
 com\internship\repository\ReportRepository.class
+com\internship\repository\InstitutionStaffRepository.class
 com\internship\dto\AuthDTO$LoginRequest.class
 com\internship\controller\CollaborationProjectController.class
 com\internship\service\CertificateService.class
@@ -23,6 +24,7 @@ com\internship\dto\InternshipDTO$Response.class
 com\internship\controller\AdminController.class
 com\internship\security\CustomUserDetailsService.class
 com\internship\controller\ApplicationController.class
+com\internship\entity\InstitutionStaff.class
 com\internship\dto\EvaluationDTO$Response.class
 com\internship\dto\AuthDTO$ForgotPasswordRequest.class
 com\internship\dto\response\NotificationResponse.class
@@ -83,8 +85,10 @@ com\internship\dto\ReportDTO$Response.class
 com\internship\entity\CollaborationProject.class
 com\internship\controller\DashboardController.class
 com\internship\dto\response\NotificationResponse$NotificationResponseBuilder.class
+com\internship\entity\InstitutionStaff$InstitutionStaffBuilder.class
 com\internship\security\JwtUtil.class
 com\internship\controller\ReportController.class
+com\internship\config\DatabaseTest.class
 com\internship\exception\BadRequestException.class
 com\internship\entity\Role$RoleBuilder.class
 com\internship\service\ApplicationService.class

@@ -4,6 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { authAPI } from "../../services/api";
 import { Button, Input } from "../../components/UI";
 import { Eye, EyeOff } from "lucide-react";
+import { useBackgroundSlideshow } from "../../hooks/useBackgroundSlideshow";
 
 export default function Login() {
   const { login } = useAuth();
@@ -12,6 +13,7 @@ export default function Login() {
   const [error, setError]   = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { backgroundStyle, imageLoaded } = useBackgroundSlideshow();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -43,8 +45,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 flex items-center justify-center p-4 transition-colors duration-500">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-md p-8 transition-all duration-300">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Auto-playing background slideshow */}
+      <div 
+        className="absolute inset-0 transition-all duration-1000 ease-in-out"
+        style={backgroundStyle}
+      />
+      <div className="absolute inset-0 bg-black/20" />
+      
+      <div className="relative z-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl w-full max-w-md p-8 transition-all duration-300">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-primary-600 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
@@ -52,6 +61,12 @@ export default function Login() {
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">NDIMS</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">National Digital Internship Management System</p>
+          
+          {/* Security Notice */}
+          <div className="bg-blue-50 border border-blue-200 text-blue-700 text-xs rounded-lg p-3 mb-4">
+            <p className="font-semibold text-center">🔒 PRODUCTION SYSTEM</p>
+            <p className="text-center mt-1">All accounts must be created through registration. No demo accounts available.</p>
+          </div>
         </div>
 
         {error && (

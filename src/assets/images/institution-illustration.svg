@@ -1,0 +1,72 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="institutionGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f766e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Institution illustration -->
+  <rect width="400" height="300" fill="#f0fdfa"/>
+  
+  <!-- University building -->
+  <rect x="100" y="100" width="200" height="150" fill="url(#institutionGrad)"/>
+  
+  <!-- Pillars -->
+  <rect x="120" y="100" width="15" height="150" fill="#0d9488"/>
+  <rect x="150" y="100" width="15" height="150" fill="#0d9488"/>
+  <rect x="235" y="100" width="15" height="150" fill="#0d9488"/>
+  <rect x="265" y="100" width="15" height="150" fill="#0d9488"/>
+  
+  <!-- Roof -->
+  <polygon points="80,100 200,50 320,100" fill="#0f766e"/>
+  
+  <!-- Windows -->
+  <rect x="170" y="120" width="25" height="25" fill="#f0fdfa"/>
+  <rect x="205" y="120" width="25" height="25" fill="#f0fdfa"/>
+  <rect x="170" y="160" width="25" height="25" fill="#f0fdfa"/>
+  <rect x="205" y="160" width="25" height="25" fill="#f0fdfa"/>
+  
+  <!-- Door -->
+  <rect x="185" y="200" width="30" height="50" fill="#064e3b"/>
+  <circle cx="208" cy="225" r="2" fill="#fbbf24"/>
+  
+  <!-- Flag -->
+  <rect x="198" y="40" width="4" height="60" fill="#6b7280"/>
+  <polygon points="202,40 202,55 225,47.5" fill="#ef4444"/>
+  
+  <!-- Students -->
+  <circle cx="50" cy="250" r="8" fill="#1f2937"/>
+  <path d="M50 258 Q45 263 45 270 L55 270 Q55 263 50 258 Z" fill="#3b82f6"/>
+  
+  <circle cx="350" cy="250" r="8" fill="#1f2937"/>
+  <path d="M350 258 Q345 263 345 270 L355 270 Q355 263 350 258 Z" fill="#ec4899"/>
+  
+  <!-- Books/scroll -->
+  <rect x="30" y="200" width="15" height="20" rx="2" fill="#f59e0b"/>
+  <rect x="355" y="200" width="15" height="20" rx="2" fill="#10b981"/>
+  
+  <!-- Graduation caps floating -->
+  <g transform="translate(80, 180)">
+    <ellipse cx="0" cy="0" rx="15" ry="5" fill="#1f2937"/>
+    <rect x="-2" y="-10" width="4" height="10" fill="#1f2937"/>
+    <rect x="-15" y="0" width="30" height="2" fill="#1f2937"/>
+  </g>
+  
+  <g transform="translate(320, 180)">
+    <ellipse cx="0" cy="0" rx="15" ry="5" fill="#1f2937"/>
+    <rect x="-2" y="-10" width="4" height="10" fill="#1f2937"/>
+    <rect x="-15" y="0" width="30" height="2" fill="#1f2937"/>
+  </g>
+  
+  <!-- Tree representing growth -->
+  <rect x="20" y="220" width="8" height="30" fill="#92400e"/>
+  <circle cx="24" cy="210" r="20" fill="#10b981"/>
+  <circle cx="15" cy="205" r="15" fill="#34d399"/>
+  <circle cx="33" cy="205" r="15" fill="#34d399"/>
+  
+  <rect x="372" y="220" width="8" height="30" fill="#92400e"/>
+  <circle cx="376" cy="210" r="20" fill="#10b981"/>
+  <circle cx="367" cy="205" r="15" fill="#34d399"/>
+  <circle cx="385" cy="205" r="15" fill="#34d399"/>
+</svg>

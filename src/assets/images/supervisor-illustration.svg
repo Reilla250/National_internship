@@ -1,0 +1,60 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="supervisorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Supervisor illustration -->
+  <rect width="400" height="300" fill="#faf5ff"/>
+  
+  <!-- Supervisor figure -->
+  <circle cx="200" cy="80" r="25" fill="#fbbf24"/>
+  <path d="M200 105 Q185 120 185 145 L185 180 Q185 195 200 195 Q215 195 215 180 L215 145 Q215 120 200 105 Z" 
+        fill="url(#supervisorGrad)"/>
+  
+  <!-- Clipboard -->
+  <rect x="220" y="120" width="40" height="50" rx="3" fill="white" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="225" y="130" width="30" height="3" fill="#e5e7eb"/>
+  <rect x="225" y="138" width="25" height="3" fill="#e5e7eb"/>
+  <rect x="225" y="146" width="28" height="3" fill="#e5e7eb"/>
+  <rect x="225" y="154" width="20" height="3" fill="#10b981"/>
+  <rect x="225" y="162" width="25" height="3" fill="#e5e7eb"/>
+  
+  <!-- Students being supervised -->
+  <circle cx="100" cy="200" r="12" fill="#60a5fa"/>
+  <path d="M100 212 Q92 220 92 235 L108 235 Q108 220 100 212 Z" fill="#818cf8"/>
+  
+  <circle cx="150" cy="200" r="12" fill="#34d399"/>
+  <path d="M150 212 Q142 220 142 235 L158 235 Q158 220 150 212 Z" fill="#6ee7b7"/>
+  
+  <circle cx="250" cy="200" r="12" fill="#f59e0b"/>
+  <path d="M250 212 Q242 220 242 235 L258 235 Q258 220 250 212 Z" fill="#fbbf24"/>
+  
+  <circle cx="300" cy="200" r="12" fill="#ef4444"/>
+  <path d="M300 212 Q292 220 292 235 L308 235 Q308 220 300 212 Z" fill="#f87171"/>
+  
+  <!-- Connection lines -->
+  <path d="M200 145 L100 200" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+  <path d="M200 145 L150 200" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+  <path d="M200 145 L250 200" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+  <path d="M200 145 L300 200" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+  
+  <!-- Progress indicators -->
+  <rect x="90" y="245" width="20" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="90" y="245" width="16" height="4" rx="2" fill="#10b981"/>
+  
+  <rect x="140" y="245" width="20" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="140" y="245" width="12" height="4" rx="2" fill="#10b981"/>
+  
+  <rect x="240" y="245" width="20" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="240" y="245" width="18" height="4" rx="2" fill="#10b981"/>
+  
+  <rect x="290" y="245" width="20" height="4" rx="2" fill="#e5e7eb"/>
+  <rect x="290" y="245" width="14" height="4" rx="2" fill="#f59e0b"/>
+  
+  <!-- Award star -->
+  <path d="M200 50 L205 60 L216 60 L207 68 L211 78 L200 70 L189 78 L193 68 L184 60 L195 60 Z" 
+        fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+</svg>

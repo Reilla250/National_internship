@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { authAPI } from "../../services/api";
 import { Button, Input, Card } from "../../components/UI";
 import toast from "react-hot-toast";
+import { useBackgroundSlideshow } from "../../hooks/useBackgroundSlideshow";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const { backgroundStyle, imageLoaded } = useBackgroundSlideshow();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +26,16 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <Card className="max-w-md w-full p-8">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+      
+      {/* Auto-playing background slideshow */}
+      <div 
+        className="absolute inset-0 transition-all duration-1000 ease-in-out"
+        style={backgroundStyle}
+      />
+      <div className="absolute inset-0 bg-black/20" />
+      
+      <div className="relative z-10 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl shadow-2xl max-w-md w-full p-8 transition-all duration-300">
         <div className="text-center mb-6">
           <div className="text-4xl mb-3">🔑</div>
           <h1 className="text-2xl font-bold text-gray-900">Forgot Password?</h1>
@@ -61,7 +71,7 @@ export default function ForgotPassword() {
             Back to Login
           </Link>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

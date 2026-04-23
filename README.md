@@ -197,6 +197,51 @@ Runs at: http://localhost:3000
 * Secure REST APIs
 * CORS configuration
 
+### ⚠️ **IMPORTANT SECURITY NOTICE**
+
+**DEMO ACCOUNTS ARE PERMANENTLY DISABLED**
+
+This NDIMS system is configured for **PRODUCTION USE ONLY**:
+
+- ❌ **No Demo Accounts**: No hardcoded demo credentials exist
+- ❌ **No Default Access**: All users must register through proper process
+- ✅ **Secure Authentication**: BCrypt password hashing with JWT tokens
+- ✅ **Role-Based Access**: Proper authorization controls implemented
+
+### 🔒 **Security Measures Implemented**
+
+1. **Backend Security**:
+   - All demo accounts removed from `DataInitializer.java`
+   - BCrypt password hashing (strength 10)
+   - JWT token-based authentication
+   - Role-based access control
+
+2. **Frontend Security**:
+   - Production system notices on all auth forms
+   - No hardcoded credentials anywhere in code
+   - Secure form validation
+
+3. **Database Security**:
+   - Encrypted password storage
+   - No default or test accounts in database
+   - Proper user registration flow
+
+### 🚫 **PROHIBITED ACTIONS**
+
+**NEVER** add demo accounts to this system:
+- Do not modify `DataInitializer.java` to add test accounts
+- Do not hardcode credentials in frontend code
+- Do not document demo credentials anywhere
+- Do not expose default passwords in configuration
+
+### ✅ **Production Ready Status**
+
+Your NDIMS system is fully secured and ready for production deployment with:
+- Zero security vulnerabilities from demo accounts
+- Complete authentication system
+- Professional user registration flow
+- Comprehensive role-based authorization
+
 ---
 
 ## 📊 Key Features

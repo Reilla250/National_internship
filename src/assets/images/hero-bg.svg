@@ -1,0 +1,64 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#grad1)"/>
+  
+  <!-- Abstract shapes representing collaboration -->
+  <circle cx="200" cy="200" r="150" fill="url(#grad2)" opacity="0.3"/>
+  <circle cx="1720" cy="880" r="200" fill="url(#grad2)" opacity="0.2"/>
+  <circle cx="960" cy="540" r="300" fill="url(#grad2)" opacity="0.1"/>
+  
+  <!-- Network connections -->
+  <path d="M200 200 L600 400 L960 540 L1320 400 L1720 880" stroke="white" stroke-width="2" opacity="0.3"/>
+  <path d="M200 200 L960 540 L1720 880" stroke="white" stroke-width="3" opacity="0.5"/>
+  
+  <!-- Internship icons -->
+  <g transform="translate(300, 300)">
+    <rect x="0" y="0" width="80" height="80" rx="10" fill="white" opacity="0.9"/>
+    <path d="M20 25 L60 25 M20 35 L60 35 M20 45 L50 45" stroke="#667eea" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="40" cy="60" r="8" fill="#764ba2"/>
+  </g>
+  
+  <g transform="translate(1500, 250)">
+    <rect x="0" y="0" width="80" height="80" rx="10" fill="white" opacity="0.9"/>
+    <circle cx="40" cy="30" r="12" fill="#f093fb"/>
+    <path d="M25 50 Q40 45 55 50 L55 65 L25 65 Z" fill="#f5576c"/>
+  </g>
+  
+  <g transform="translate(800, 700)">
+    <rect x="0" y="0" width="80" height="80" rx="10" fill="white" opacity="0.9"/>
+    <path d="M20 30 L35 20 L50 30 L50 50 L20 50 Z M30 20 L30 10 L50 10 L50 20" stroke="#667eea" stroke-width="3" fill="none"/>
+    <circle cx="40" cy="40" r="5" fill="#764ba2"/>
+  </g>
+  
+  <!-- Floating particles -->
+  <circle cx="100" cy="100" r="4" fill="white" opacity="0.8"/>
+  <circle cx="300" cy="150" r="3" fill="white" opacity="0.6"/>
+  <circle cx="500" cy="80" r="5" fill="white" opacity="0.7"/>
+  <circle cx="700" cy="120" r="3" fill="white" opacity="0.9"/>
+  <circle cx="900" cy="90" r="4" fill="white" opacity="0.6"/>
+  <circle cx="1100" cy="140" r="3" fill="white" opacity="0.8"/>
+  <circle cx="1300" cy="100" r="5" fill="white" opacity="0.7"/>
+  <circle cx="1500" cy="130" r="4" fill="white" opacity="0.9"/>
+  <circle cx="1700" cy="110" r="3" fill="white" opacity="0.6"/>
+  
+  <circle cx="150" cy="900" r="4" fill="white" opacity="0.7"/>
+  <circle cx="350" cy="950" r="3" fill="white" opacity="0.8"/>
+  <circle cx="550" cy="920" r="5" fill="white" opacity="0.6"/>
+  <circle cx="750" cy="960" r="3" fill="white" opacity="0.9"/>
+  <circle cx="950" cy="930" r="4" fill="white" opacity="0.7"/>
+  <circle cx="1150" cy="970" r="3" fill="white" opacity="0.8"/>
+  <circle cx="1350" cy="940" r="5" fill="white" opacity="0.6"/>
+  <circle cx="1550" cy="980" r="4" fill="white" opacity="0.9"/>
+  <circle cx="1750" cy="950" r="3" fill="white" opacity="0.7"/>
+</svg>

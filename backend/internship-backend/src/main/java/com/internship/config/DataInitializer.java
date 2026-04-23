@@ -27,7 +27,7 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner initializeData() {
         return args -> {
-            log.info("Checking demo data...");
+            log.info("Initializing system roles and data...");
 
                 roleRepository.findByRoleName("ADMIN").orElseGet(() -> roleRepository.save(new Role(null, "ADMIN")));
                 roleRepository.findByRoleName("STUDENT").orElseGet(() -> roleRepository.save(new Role(null, "STUDENT")));
@@ -35,65 +35,6 @@ public class DataInitializer {
                 roleRepository.findByRoleName("SUPERVISOR").orElseGet(() -> roleRepository.save(new Role(null, "SUPERVISOR")));
                 roleRepository.findByRoleName("INSTITUTION").orElseGet(() -> roleRepository.save(new Role(null, "INSTITUTION")));
                 roleRepository.findByRoleName("GOVERNMENT").orElseGet(() -> roleRepository.save(new Role(null, "GOVERNMENT")));
-
-                Role adminRole = roleRepository.findByRoleName("ADMIN").get();
-
-                if (userRepository.findByEmail("admin@internship.com").isEmpty()) {
-                    User adminUser = User.builder()
-                            .email("admin@internship.com")
-                            .password(passwordEncoder.encode("admin123"))
-                            .role(adminRole)
-                            .status("ACTIVE")
-                            .build();
-                    userRepository.save(adminUser);
-                    log.info("Admin account created: admin@internship.com / admin123");
-                }
-
-                if (userRepository.findByEmail("student@internship.com").isEmpty()) {
-                    Role studentRole = roleRepository.findByRoleName("STUDENT").get();
-                    User studentUser = userRepository.save(User.builder()
-                            .email("student@internship.com")
-                            .password(passwordEncoder.encode("student123"))
-                            .role(studentRole)
-                            .status("ACTIVE")
-                            .build());
-                    studentRepository.save(Student.builder()
-                            .user(studentUser)
-                            .firstName("John")
-                            .lastName("Doe")
-                            .program("Computer Science")
-                            .build());
-                    log.info("Student account created: student@internship.com / student123");
-                }
-                if (userRepository.findByEmail("company@internship.com").isEmpty()) {
-                    Role companyRole = roleRepository.findByRoleName("COMPANY").get();
-                    User companyUser = userRepository.save(User.builder()
-                            .email("company@internship.com")
-                            .password(passwordEncoder.encode("company123"))
-                            .role(companyRole)
-                            .status("ACTIVE")
-                            .build());
-                    companyRepository.save(Company.builder()
-                            .user(companyUser)
-                            .companyName("TechCorp Solutions")
-                            .build());
-                    log.info("Company account created: company@internship.com / company123");
-                }
-                if (userRepository.findByEmail("supervisor@internship.com").isEmpty()) {
-                    Role supervisorRole = roleRepository.findByRoleName("SUPERVISOR").get();
-                    User supervisorUser = userRepository.save(User.builder()
-                            .email("supervisor@internship.com")
-                            .password(passwordEncoder.encode("supervisor123"))
-                            .role(supervisorRole)
-                            .status("ACTIVE")
-                            .build());
-                    supervisorRepository.save(Supervisor.builder()
-                            .user(supervisorUser)
-                            .firstName("Jane")
-                            .lastName("Smith")
-                            .build());
-                    log.info("Supervisor account created: supervisor@internship.com / supervisor123");
-                }
 
                 String[] institutions = {
                     "University of Rwanda (UR)",
@@ -133,31 +74,8 @@ public class DataInitializer {
                                 .build());
                     }
                 }
-
-                if (userRepository.findByEmail("institution@internship.com").isEmpty()) {
-                    Role institutionRole = roleRepository.findByRoleName("INSTITUTION").get();
-                    userRepository.save(User.builder()
-                            .email("institution@internship.com")
-                            .password(passwordEncoder.encode("institution123"))
-                            .role(institutionRole)
-                            .status("ACTIVE")
-                            .build());
-                    log.info("Institution account created: institution@internship.com / institution123");
-                }
-
-                // Create government demo
-                if (userRepository.findByEmail("government@internship.com").isEmpty()) {
-                    Role governmentRole = roleRepository.findByRoleName("GOVERNMENT").get();
-                    userRepository.save(User.builder()
-                            .email("government@internship.com")
-                            .password(passwordEncoder.encode("government123"))
-                            .role(governmentRole)
-                            .status("ACTIVE")
-                            .build());
-                    log.info("Government account created: government@internship.com / government123");
-                }
                 
-                log.info("System initialized with demo accounts and data.");
+                log.info("System initialized with roles and institutions data.");
         };
     }
 }
