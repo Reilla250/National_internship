@@ -82,7 +82,8 @@ export default function Register() {
       console.log("Submitting registration:", payload);
       const res = await authAPI.register(payload);
       console.log("Registration success:", res.data);
-      setSuccess(true);
+      // Redirect to OTP verification page
+      navigate(`/verify-otp?email=${encodeURIComponent(payload.email)}`);
       setError("");
     } catch (err) {
       console.error("Registration error:", err);

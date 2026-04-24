@@ -79,4 +79,44 @@ public class EmailService {
             log.error("Failed to send password reset email to: {}. Error: {}", to, e.getMessage());
         }
     }
+
+    @Async
+    public void sendVerificationOtpEmail(String to, String name, String otp) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(FROM_EMAIL);
+            message.setTo(to);
+            message.setSubject("Email Verification - National Internship Management System");
+            message.setText("Dear " + name + ",\n\n" +
+                    "Thank you for registering with the National Internship Management System.\n\n" +
+                    "Your email verification code is: " + otp + "\n\n" +
+                    "This code will expire in 10 minutes. Please enter it to verify your email address.\n\n" +
+                    "If you didn't request this, please ignore this email.\n\n" +
+                    "Best regards,\n" +
+                    "Verification Team");
+            mailSender.send(message);
+            log.info("Verification OTP email sent to: {}", to);
+        } catch (Exception e) {
+            log.error("Failed to send verification OTP email to: {}. Error: {}", to, e.getMessage());
+        }
+    }
+
+    @Async
+    public void sendVerificationSuccessEmail(String to, String name) {
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(FROM_EMAIL);
+            message.setTo(to);
+            message.setSubject("Email Verified Successfully - National Internship Management System");
+            message.setText("Dear " + name + ",\n\n" +
+                    "Your email has been successfully verified!\n\n" +
+                    "You can now log in to your account and access all features of the system.\n\n" +
+                    "Best regards,\n" +
+                    "Management Team");
+            mailSender.send(message);
+            log.info("Verification success email sent to: {}", to);
+        } catch (Exception e) {
+            log.error("Failed to send verification success email to: {}. Error: {}", to, e.getMessage());
+        }
+    }
 }

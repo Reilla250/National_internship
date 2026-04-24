@@ -1,6 +1,7 @@
 package com.internship.service;
 
 import com.internship.dto.AuthDTO.*;
+import com.internship.dto.OtpDTO.*;
 import com.internship.entity.*;
 import com.internship.exception.BadRequestException;
 import com.internship.exception.ResourceNotFoundException;
@@ -100,6 +101,7 @@ public class AuthService {
                     .password(passwordEncoder.encode(req.getPassword()))
                     .role(role)
                     .status("ACTIVE")
+                    .emailVerified(false)  // Require OTP verification
                     .build();
             
             userRepository.save(user);
@@ -129,9 +131,16 @@ public class AuthService {
                 log.warn("Failed to create notification, but continuing: {}", e.getMessage());
             }
 
-            // Send welcome email (async - won't fail registration)
+            // Send OTP verification email for public registration (async - won't fail registration)
             if (isPublic) {
-                emailService.sendWelcomeEmail(user.getEmail(), personalizedName, role.getRoleName());
+                // Generate OTP and send verification email
+                String otp = String.format("%06d", (int)(Math.random() * 1000000));
+                user.setEmailVerificationOtp(otp);
+                user.setOtpExpiry(java.time.LocalDateTime.now().plusMinutes(10));
+                userRepository.save(user);
+                
+                emailService.sendVerificationOtpEmail(user.getEmail(), personalizedName, otp);
+                log.info("Registration OTP sent to: {}", user.getEmail());
             } else {
                 emailService.sendAccountCreatedEmail(user.getEmail(), personalizedName, role.getRoleName(), req.getPassword());
             }
@@ -166,6 +175,10 @@ public class AuthService {
 
         if (!"ACTIVE".equals(user.getStatus())) {
             throw new BadRequestException("Account is not active");
+        }
+
+        if (!user.getEmailVerified()) {
+            throw new BadRequestException("Please verify your email before logging in. Check your inbox for the OTP.");
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
@@ -298,5 +311,82 @@ public class AuthService {
             return institutionRepository.findById(req.getInstitutionId()).orElse(null);
         }
         return null;
+    }
+
+    // OTP Methods
+    @Transactional
+    public OtpResponse generateAndSendOtp(OtpResendRequest req) {
+        User user = userRepository.findByEmail(req.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + req.getEmail()));
+
+        if (user.getEmailVerified()) {
+            return new OtpResponse("Email is already verified", true);
+        }
+
+        // Generate 6-digit OTP
+        String otp = String.format("%06d", (int)(Math.random() * 1000000));
+        
+        // Set OTP and expiry (10 minutes)
+        user.setEmailVerificationOtp(otp);
+        user.setOtpExpiry(java.time.LocalDateTime.now().plusMinutes(10));
+        userRepository.save(user);
+
+        // Send OTP email
+        String personalizedName = getPersonalizedNameFromUser(user);
+        emailService.sendVerificationOtpEmail(user.getEmail(), personalizedName, otp);
+
+        log.info("OTP generated and sent to: {}", user.getEmail());
+        return new OtpResponse("OTP sent to your email. Please check your inbox.", true, user.getEmail());
+    }
+
+    @Transactional
+    public OtpResponse verifyOtp(OtpVerificationRequest req) {
+        User user = userRepository.findByEmail(req.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + req.getEmail()));
+
+        // Validate OTP
+        if (user.getEmailVerificationOtp() == null || user.getOtpExpiry() == null) {
+            return new OtpResponse("No OTP found. Please request a new OTP.", false);
+        }
+
+        if (user.getOtpExpiry().isBefore(java.time.LocalDateTime.now())) {
+            return new OtpResponse("OTP has expired. Please request a new OTP.", false);
+        }
+
+        if (!user.getEmailVerificationOtp().equals(req.getOtp())) {
+            return new OtpResponse("Invalid OTP. Please try again.", false);
+        }
+
+        // Mark email as verified and clear OTP
+        user.setEmailVerified(true);
+        user.setEmailVerificationOtp(null);
+        user.setOtpExpiry(null);
+        userRepository.save(user);
+
+        // Send verification success email
+        String personalizedName = getPersonalizedNameFromUser(user);
+        emailService.sendVerificationSuccessEmail(user.getEmail(), personalizedName);
+
+        log.info("Email verified successfully for: {}", user.getEmail());
+        return new OtpResponse("Email verified successfully! You can now log in.", true, user.getEmail());
+    }
+
+    private String getPersonalizedNameFromUser(User user) {
+        // Try to get name from associated profile
+        try {
+            return switch (user.getRole().getRoleName()) {
+                case "STUDENT" -> studentRepository.findByUser_UserId(user.getUserId())
+                        .map(Student::getFirstName).orElse("User");
+                case "COMPANY" -> companyRepository.findByUser_UserId(user.getUserId())
+                        .map(Company::getCompanyName).orElse("User");
+                case "SUPERVISOR" -> supervisorRepository.findByUser_UserId(user.getUserId())
+                        .map(Supervisor::getFirstName).orElse("User");
+                case "INSTITUTION" -> institutionStaffRepository.findByUser_UserId(user.getUserId())
+                        .map(staff -> staff.getInstitution().getName()).orElse("User");
+                default -> "User";
+            };
+        } catch (Exception e) {
+            return "User";
+        }
     }
 }

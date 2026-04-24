@@ -31,6 +31,8 @@ export const authAPI = {
   login:          (data) => api.post("/api/auth/login", data),
   forgotPassword: (data) => api.post("/api/auth/forgot-password", data),
   resetPassword:  (data) => api.post("/api/auth/reset-password", data),
+  sendOtp:        (data) => api.post("/api/auth/send-otp", data),
+  verifyOtp:      (data) => api.post("/api/auth/verify-otp", data),
 };
 
 export const internshipAPI = {

@@ -44,4 +44,14 @@ public class User {
     private String resetToken;
 
     private LocalDateTime resetTokenExpiry;
+
+    // OTP verification fields
+    @Column(length = 6)
+    private String emailVerificationOtp;
+
+    private LocalDateTime otpExpiry;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean emailVerified = false;
 }
