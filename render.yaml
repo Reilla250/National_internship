@@ -4,7 +4,7 @@ services:
     name: internship-backend
     env: docker
     repo: https://github.com/Reilla250/National_internship.git
-    dockerfilePath: backend/internship-backend/Dockerfile
+    dockerfilePath: ./Dockerfile
     plan: free
     region: oregon
     branch: main
