@@ -1,22 +1,13 @@
-services:
-  # Backend Service
-  - type: web
-    name: internship-backend
-    env: docker
-    repo: https://github.com/Reilla250/National_internship.git
-    dockerfilePath: ./Dockerfile
-    plan: free
-    region: oregon
-    branch: main
-    healthCheckPath: /actuator/health
-    envVars:
-      - key: PORT
-        value: 8085
-      - key: DB_HOST
-        value: jdbc:mysql://shortline.proxy.rlwy.net:44641/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      - key: DB_USER
-        value: root
-      - key: DB_PASSWORD
-        value: zkJyVvwSZXIhtygFYXSBYC1KOIkrGPRX
-      - key: DB_NAME
-        value: railway
+- type: web
+  name: internship-backend
+  env: docker
+  rootDir: backend/internship-backend
+  envVars:
+    - key: DB_HOST
+      value: jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
+    - key: DB_USER
+      value: 3jMrabZWjdqqmw9.root
+    - key: DB_PASSWORD
+      value: 6QWm64HjDfYkgQLc
+    - key: DB_NAME
+      value: internship_db
