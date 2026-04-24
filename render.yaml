@@ -21,7 +21,7 @@ services:
     env: static
     rootDir: ./
     buildCommand: npm run build
-    staticPublishPath: ./build
+    staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
         value: https://internship-backend.onrender.com
