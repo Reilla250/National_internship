@@ -24,4 +24,4 @@ services:
     staticPublishPath: build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://internship-backend.onrender.com
+        value: https://national-internship-i7zp.onrender.com
