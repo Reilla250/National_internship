@@ -1,9 +1,13 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "https://national-internship-i7zp.onrender.com/api/$1"
     }
-  ]
+  ],
+  "ignoreCommand": "echo 'No ignore command'"
 }

@@ -1,0 +1,12 @@
+# Backend files - exclude from Vercel build
+backend/
+*.jar
+*.java
+pom.xml
+target/
+*.zip
+*.bat
+*.ps1
+database/
+*.sql
+*.md
