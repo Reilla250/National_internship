@@ -4,7 +4,6 @@ services:
     name: internship-backend
     env: docker
     rootDir: backend/internship-backend
-    plan: free
     envVars:
       - key: DB_HOST
         value: jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
@@ -22,7 +21,6 @@ services:
     rootDir: ./
     buildCommand: npm run build
     staticPublishPath: ./build
-    plan: free
     envVars:
       - key: REACT_APP_API_URL
         value: https://internship-backend.onrender.com
