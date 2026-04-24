@@ -1,13 +1,28 @@
-- type: web
-  name: internship-backend
-  env: docker
-  rootDir: backend/internship-backend
-  envVars:
-    - key: DB_HOST
-      value: jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
-    - key: DB_USER
-      value: 3jMrabZWjdqqmw9.root
-    - key: DB_PASSWORD
-      value: 6QWm64HjDfYkgQLc
-    - key: DB_NAME
-      value: internship_db
+services:
+  # Backend Service - Docker
+  - type: web
+    name: internship-backend
+    env: docker
+    rootDir: backend/internship-backend
+    plan: free
+    envVars:
+      - key: DB_HOST
+        value: jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
+      - key: DB_USER
+        value: 3jMrabZWjdqqmw9.root
+      - key: DB_PASSWORD
+        value: 6QWm64HjDfYkgQLc
+      - key: DB_NAME
+        value: internship_db
+
+  # Frontend Service - Static
+  - type: web
+    name: internship-frontend
+    env: static
+    rootDir: ./
+    buildCommand: npm run build
+    staticPublishPath: ./build
+    plan: free
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://internship-backend.onrender.com
