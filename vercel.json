@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://national-internship-2.onrender.com/api/$1"
+      "destination": "https://national-internship-i7zp.onrender.com/api/$1"
     }
   ]
 }
