@@ -1,9 +1,10 @@
 services:
-  # Backend Service - Docker
+  # Backend Service - Docker (Free Tier - sleeps after 15min inactivity)
   - type: web
     name: internship-backend
     env: docker
     rootDir: backend/internship-backend
+    instanceType: free
     envVars:
       - key: DB_HOST
         value: jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
@@ -14,7 +15,7 @@ services:
       - key: DB_NAME
         value: internship_db
 
-  # Frontend Service - Static
+  # Frontend Service - Static (Always Free)
   - type: web
     name: internship-frontend
     env: static
