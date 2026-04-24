@@ -23,7 +23,7 @@ import {
   Download,
   Eye
 } from "lucide-react";
-import governmentIllustration from "../../assets/images/government-illustration.svg";
+import governmentIllustration from "../../assets/images/government-hero.png";
 
 export default function GovernmentDashboardModern() {
   const [governmentStats, setGovernmentStats] = useState({

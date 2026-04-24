@@ -22,7 +22,7 @@ public class NotificationController {
     }
 
     @PutMapping("/{id}/read")
-    public ResponseEntity<Void> markAsRead(@PathVariable Long id, Authentication authentication) {
+    public ResponseEntity<Void> markAsRead(@PathVariable("id") Long id, Authentication authentication) {
         notificationService.markAsRead(id, authentication.getName());
         return ResponseEntity.ok().build();
     }

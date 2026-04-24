@@ -1,0 +1,14 @@
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe.api@example.com",
+  "password": "Password123!",
+  "registrationNumber": "REG444555666",
+  "phone": "0781112223",
+  "yearOfStudy": 2,
+  "program": "Engineering",
+  "institutionId": 1,
+  "role": "STUDENT",
+  "dateOfBirth": "2000-01-01",
+  "gender": "MALE"
+}

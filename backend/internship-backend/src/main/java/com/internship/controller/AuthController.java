@@ -16,6 +16,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest req) {
+        // Let GlobalExceptionHandler handle exceptions for better error reporting
         return ResponseEntity.ok(authService.register(req));
     }
 

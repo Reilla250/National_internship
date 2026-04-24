@@ -15,7 +15,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     List<Notification> findByRecipientOrderByCreatedAtDesc(User recipient);
     
     @Modifying
-    @Query("UPDATE Notification n SET n.isRead = true WHERE n.recipient = :recipient")
+    @Query("UPDATE Notification n SET n.status = 'READ' WHERE n.recipient = :recipient")
     void markAllAsReadForUser(User recipient);
     
     void deleteByRecipient(User recipient);

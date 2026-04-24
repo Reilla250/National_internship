@@ -30,24 +30,47 @@ public class Student {
     @Column(nullable = false, length = 100)
     private String lastName;
 
-    @Column(length = 20)
-    private String nationalId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "institution_id")
     private Institution institution;
 
-    @Column(length = 100)
-    private String program;
-
-    private Integer graduationYear;
-    
     @Column(length = 50, unique = true)
     private String registrationNumber;
 
+    @Column(length = 100)
+    private String program;
+
+    private Integer yearOfStudy;
+    
     @Column(length = 20)
     private String phone;
 
+    @Column(columnDefinition = "TEXT")
+    private String address;
+
+    @Column(name = "date_of_birth")
+    private java.time.LocalDate dateOfBirth;
+
+    @Column(length = 10)
+    private String gender;
+
+    @Column(length = 255)
+    private String profilePicture;
+
+    @Column(length = 255)
+    private String resumeUrl;
+
+    @Column(columnDefinition = "TEXT")
+    private String skills;
+
+    private java.math.BigDecimal gpa;
+
+    @Column(length = 20)
+    private String status;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

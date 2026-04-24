@@ -39,17 +39,29 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [institutionsLoading, setInstitutionsLoading] = useState(true);
   const { backgroundStyle, imageLoaded } = useBackgroundSlideshow();
 
   React.useEffect(() => {
+    // Nuclear option: Clear any persisted errors
+    setError("");
+    sessionStorage.removeItem('register_error');
+    
+    setInstitutionsLoading(true);
     institutionAPI.getAll()
       .then(res => {
-        console.log("Fetched institutions:", res.data);
-        setInstitutions(Array.isArray(res.data) ? res.data : []);
+        const data = Array.isArray(res.data) ? res.data : [];
+        // Deduplicate by institutionId
+        const unique = Array.from(new Map(data.map(inst => [inst.institutionId, inst])).values());
+        setInstitutions(unique);
+        setError("");
       })
       .catch(err => {
         console.error("Failed to load institutions", err);
-        setError("Could not load institutions. Please check if the backend is running.");
+        setError("Backend server is not running. Please start the backend first.");
+      })
+      .finally(() => {
+        setInstitutionsLoading(false);
       });
   }, []);
 
@@ -68,19 +80,27 @@ export default function Register() {
         payload.newInstitutionName = "";
       }
       console.log("Submitting registration:", payload);
-      await authAPI.register(payload);
+      const res = await authAPI.register(payload);
+      console.log("Registration success:", res.data);
       setSuccess(true);
+      setError("");
     } catch (err) {
       console.error("Registration error:", err);
+      let errorMsg = "Registration failed";
+      
       if (!err.response) {
-        setError("Server is offline. Please start the Backend in IntelliJ.");
+        errorMsg = "Cannot connect to server. Please ensure the backend is running on port 8085.";
+      } else if (err.response.status === 400) {
+        errorMsg = err.response.data?.message || "Invalid data provided. Please check all fields.";
+      } else if (err.response.status === 409) {
+        errorMsg = "Email or registration number already exists.";
+      } else if (err.response.status >= 500) {
+        errorMsg = "Server error. Please try again later.";
       } else {
-        const errorMsg = err.response.data?.message || 
-                        err.response.data || 
-                        err.message || 
-                        "Registration failed";
-        setError(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
+        errorMsg = err.response.data?.message || err.message || "Registration failed";
       }
+      
+      setError(typeof errorMsg === 'string' ? errorMsg : JSON.stringify(errorMsg));
     } finally {
       setLoading(false);
     }
@@ -122,7 +142,18 @@ export default function Register() {
         ) : (
           <>
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3 mb-4">{error}</div>
+              <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3 mb-4 flex items-start gap-2">
+                <span className="mt-0.5">⚠️</span>
+                <div className="flex-1">
+                  <p className="font-medium">{error}</p>
+                  <button 
+                    onClick={() => setError("")} 
+                    className="text-xs text-red-600 hover:text-red-800 underline mt-1"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
             )}
             
             <div className="flex gap-4 mb-6">
@@ -159,8 +190,15 @@ export default function Register() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Select label="Institution" name="institutionId" value={form.institutionId} onChange={set} required>
-                    <option value="">Select institution...</option>
+                  <Select 
+                    label="Institution" 
+                    name="institutionId" 
+                    value={form.institutionId} 
+                    onChange={set} 
+                    required
+                    disabled={institutionsLoading}
+                  >
+                    <option value="">{institutionsLoading ? "Loading institutions..." : "Select institution..."}</option>
                     {institutions.map(inst => (
                       <option key={inst.institutionId} value={inst.institutionId}>{inst.name}</option>
                     ))}

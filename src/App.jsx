@@ -13,7 +13,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 
 // Student
-import StudentDashboard    from "./pages/student/DashboardModern";
+import StudentDashboard    from "./pages/student/Dashboard";
 import BrowseInternships   from "./pages/student/BrowseInternships";
 import StudentApplications from "./pages/student/Applications";
 import StudentReports      from "./pages/student/Reports";
@@ -21,26 +21,26 @@ import StudentEvaluations  from "./pages/student/Evaluations";
 import StudentCertificates from "./pages/student/Certificates";
 
 // Company
-import CompanyDashboard     from "./pages/company/DashboardModern";
+import CompanyDashboard     from "./pages/company/Dashboard";
 import CompanyInternships   from "./pages/company/Internships";
 import CompanyApplications  from "./pages/company/Applications";
 import CompanyCollaboration from "./pages/company/Collaboration";
 
 // Supervisor
-import SupervisorDashboard   from "./pages/supervisor/DashboardModern";
+import SupervisorDashboard   from "./pages/supervisor/Dashboard";
 import SupervisorStudents    from "./pages/supervisor/Students";
 import SupervisorReports     from "./pages/supervisor/Reports";
 import SupervisorEvaluations from "./pages/supervisor/Evaluations";
 
 // Institution
-import InstitutionDashboard from "./pages/institution/DashboardModern";
+import InstitutionDashboard from "./pages/institution/Dashboard";
 import InstitutionStudents  from "./pages/institution/Students";
 
 // Government
-import GovernmentDashboard from "./pages/government/DashboardModern";
+import GovernmentDashboard from "./pages/government/Dashboard";
 
 // Admin
-import AdminDashboard from "./pages/admin/DashboardModern";
+import AdminDashboard from "./pages/admin/Dashboard";
 
 function Unauthorized() {
   return (

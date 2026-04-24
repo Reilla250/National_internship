@@ -27,7 +27,17 @@ public class InstitutionService {
     }
 
     public List<com.internship.entity.Institution> getAllInstitutions() {
-        return institutionRepository.findAll();
+        return institutionRepository.findAll()
+            .stream()
+            .collect(java.util.stream.Collectors.toMap(
+                com.internship.entity.Institution::getName,
+                inst -> inst,
+                (existing, replacement) -> existing
+            ))
+            .values()
+            .stream()
+            .sorted(java.util.Comparator.comparing(com.internship.entity.Institution::getName))
+            .toList();
     }
 
     public Map<String, Object> getInstitutionStats(Long institutionId) {

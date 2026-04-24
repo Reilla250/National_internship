@@ -27,7 +27,8 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner initializeData() {
         return args -> {
-            log.info("Initializing system roles and data...");
+            try {
+                log.info("Initializing system roles and data...");
 
                 roleRepository.findByRoleName("ADMIN").orElseGet(() -> roleRepository.save(new Role(null, "ADMIN")));
                 roleRepository.findByRoleName("STUDENT").orElseGet(() -> roleRepository.save(new Role(null, "STUDENT")));
@@ -76,6 +77,9 @@ public class DataInitializer {
                 }
                 
                 log.info("System initialized with roles and institutions data.");
+            } catch (Exception e) {
+                log.warn("Database initialization skipped (connection limit or error): {}", e.getMessage());
+            }
         };
     }
 }

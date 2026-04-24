@@ -2,8 +2,8 @@
 -- National Digital Internship & Industry Collaboration System
 -- Cloud Database Schema - MySQL (For FreeSQLDatabase)
 -- ============================================================
--- Note: This schema assumes database 'sql7824118' already exists
--- USE sql7824118;
+-- Note: This schema assumes database 'sql7824124' already exists
+-- USE sql7824124;
 
 -- -------------------------
 -- Roles Table

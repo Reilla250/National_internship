@@ -22,5 +22,4 @@ if "%MVN_PATH%"=="" (
 
 echo [2] Starting Spring Boot Backend...
 "%MVN_PATH%" spring-boot:run -Dmaven.compiler.skip=true -Dmaven.test.skip=true
-
-pause
+echo [OK] Backend started.

@@ -22,7 +22,7 @@ import {
   Download,
   GraduationCap
 } from "lucide-react";
-import supervisorIllustration from "../../assets/images/supervisor-illustration.svg";
+import supervisorIllustration from "../../assets/images/supervisor-hero.png";
 
 export default function SupervisorDashboardModern() {
   const [supervisorStats, setSupervisorStats] = useState({

@@ -22,7 +22,7 @@ import {
   MapPin,
   Briefcase
 } from "lucide-react";
-import institutionIllustration from "../../assets/images/institution-illustration.svg";
+import institutionIllustration from "../../assets/images/institution-hero.png";
 
 export default function InstitutionDashboardModern() {
   const [institutionStats, setInstitutionStats] = useState({

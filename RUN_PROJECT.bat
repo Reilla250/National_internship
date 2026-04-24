@@ -18,7 +18,7 @@ echo [2] Checking Database...
 echo IMPORTANT: Please ensure XAMPP (MySQL) is currently RUNNING.
 echo If it's not running, open the XAMPP Control Panel and start MySQL now.
 echo Press any key when you are sure the database is ready...
-pause >nul
+rem pause >nul
 echo.
 
 echo [3] Finding Maven...
@@ -45,7 +45,7 @@ echo [OK] Backend initialization window started.
 echo.
 
 echo [5] Starting Frontend (React)...
-start "Frontend UI" cmd /c "cd /d "%~dp0frontend\internship-frontend" && title Frontend React App && npm start && echo Frontend has stopped... && pause"
+start "Frontend UI" cmd /c "cd /d "%~dp0" && title Frontend React App && npm start && echo Frontend has stopped... && pause"
 echo [OK] Frontend initialization window started.
 echo.
 

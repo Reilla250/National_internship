@@ -67,55 +67,94 @@ public class AuthService {
     }
 
     private AuthResponse registerInternal(RegisterRequest req, boolean isPublic) {
-        log.info("Incoming registration request: email={}, registrationNumber={}", req.getEmail(), req.getRegistrationNumber());
-        if (userRepository.existsByEmail(req.getEmail())) {
-            throw new BadRequestException("Email already in use: " + req.getEmail());
-        }
-
-        if (req.getRegistrationNumber() != null && studentRepository.existsByRegistrationNumber(req.getRegistrationNumber())) {
-            Student existing = studentRepository.findByRegistrationNumber(req.getRegistrationNumber()).orElse(null);
-            String owner = (existing != null && existing.getUser() != null) ? existing.getUser().getEmail() : "unknown";
-            throw new BadRequestException("Registration number " + req.getRegistrationNumber() + " is already used by: " + owner);
-        }
-
-        // Restrict public registration
-        if (isPublic && !java.util.List.of("STUDENT", "COMPANY", "INSTITUTION").contains(req.getRoleName())) {
-            throw new BadRequestException("Public registration is not available for this role.");
-        }
-
-        Role role = roleRepository.findByRoleName(req.getRoleName())
-                .orElseThrow(() -> new BadRequestException("Invalid role: " + req.getRoleName()));
-
-        User user = User.builder()
-                .email(req.getEmail())
-                .password(passwordEncoder.encode(req.getPassword()))
-                .role(role)
-                .status("ACTIVE")
-                .build();
-        userRepository.save(user);
-
-        Long profileId = createProfile(req, role.getRoleName(), user);
-
-        String personalizedName = getPersonalizedName(req);
+        log.info("Incoming registration request: email={}, registrationNumber={}, role={}", 
+            req.getEmail(), req.getRegistrationNumber(), req.getRoleName());
         
-        // Send welcome notification (In-app)
-        String notificationMsg = isPublic 
-            ? "Welcome! Your account as " + role.getRoleName() + " has been successfully registered."
-            : "An account has been created for you by the Administrator as a " + role.getRoleName() + ".";
+        User user = null;
+        Role role = null;
+        Long profileId = null;
+        
+        try {
+            // Validation checks
+            if (userRepository.existsByEmail(req.getEmail())) {
+                throw new BadRequestException("Email already in use: " + req.getEmail());
+            }
+
+            if (req.getRegistrationNumber() != null && studentRepository.existsByRegistrationNumber(req.getRegistrationNumber())) {
+                Student existing = studentRepository.findByRegistrationNumber(req.getRegistrationNumber()).orElse(null);
+                String owner = (existing != null && existing.getUser() != null) ? existing.getUser().getEmail() : "unknown";
+                throw new BadRequestException("Registration number " + req.getRegistrationNumber() + " is already used by: " + owner);
+            }
+
+            // Restrict public registration
+            if (isPublic && !java.util.List.of("STUDENT", "COMPANY", "INSTITUTION").contains(req.getRoleName())) {
+                throw new BadRequestException("Public registration is not available for this role.");
+            }
+
+            // Create user and profile
+            role = roleRepository.findByRoleName(req.getRoleName())
+                    .orElseThrow(() -> new BadRequestException("Invalid role: " + req.getRoleName()));
+
+            user = User.builder()
+                    .email(req.getEmail())
+                    .password(passwordEncoder.encode(req.getPassword()))
+                    .role(role)
+                    .status("ACTIVE")
+                    .build();
             
-        notificationService.createNotification(user.getEmail(), notificationMsg, "SUCCESS");
-
-        // Send welcome email
-        if (isPublic) {
-            emailService.sendWelcomeEmail(user.getEmail(), personalizedName, role.getRoleName());
-        } else {
-            emailService.sendAccountCreatedEmail(user.getEmail(), personalizedName, role.getRoleName(), req.getPassword());
+            userRepository.save(user);
+            profileId = createProfile(req, role.getRoleName(), user);
+            
+            log.info("User and profile created successfully for: {}", req.getEmail());
+            
+        } catch (BadRequestException e) {
+            log.warn("Registration validation failed: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            log.error("Core registration failed: {}", e.getMessage(), e);
+            throw new RuntimeException("Registration failed: " + e.getMessage(), e);
         }
+        
+        // Send notifications and emails (non-blocking)
+        try {
+            String personalizedName = getPersonalizedName(req);
+            
+            // Send welcome notification (In-app)
+            try {
+                String notificationMsg = isPublic 
+                    ? "Welcome! Your account as " + role.getRoleName() + " has been successfully registered."
+                    : "An account has been created for you by the Administrator as a " + role.getRoleName() + ".";
+                notificationService.createNotification(user.getEmail(), notificationMsg, "SUCCESS");
+            } catch (Exception e) {
+                log.warn("Failed to create notification, but continuing: {}", e.getMessage());
+            }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
-        String token = jwtUtil.generateToken(userDetails);
+            // Send welcome email (async - won't fail registration)
+            if (isPublic) {
+                emailService.sendWelcomeEmail(user.getEmail(), personalizedName, role.getRoleName());
+            } else {
+                emailService.sendAccountCreatedEmail(user.getEmail(), personalizedName, role.getRoleName(), req.getPassword());
+            }
+        } catch (Exception e) {
+            log.warn("Notification/Email failed, but registration succeeded: {}", e.getMessage());
+        }
+        
+        // Generate JWT token (with fallback)
+        try {
+            log.info("Generating JWT token for: {}", req.getEmail());
+            User refreshedUser = userRepository.findByEmail(user.getEmail())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found after registration"));
+            
+            UserDetails userDetails = userDetailsService.loadUserByUsername(refreshedUser.getEmail());
+            String token = jwtUtil.generateToken(userDetails);
+            log.info("Registration completed successfully for: {}", req.getEmail());
 
-        return new AuthResponse(token, user.getEmail(), role.getRoleName(), profileId);
+            return new AuthResponse(token, refreshedUser.getEmail(), role.getRoleName(), profileId);
+        } catch (Exception e) {
+            log.error("Token generation failed, but registration was successful: {}", e.getMessage());
+            // Return response without token - registration was successful
+            return new AuthResponse(null, user.getEmail(), role.getRoleName(), profileId);
+        }
     }
 
     public AuthResponse login(LoginRequest req) {
@@ -146,8 +185,10 @@ public class AuthService {
                         .lastName(req.getLastName())
                         .institution(inst)
                         .program(req.getProgram())
+                        .yearOfStudy(null) // Can be added to DTO if needed
                         .registrationNumber(req.getRegistrationNumber())
                         .phone(req.getPhone())
+                        .status("ACTIVE")
                         .build();
                 yield studentRepository.save(s).getStudentId();
             }

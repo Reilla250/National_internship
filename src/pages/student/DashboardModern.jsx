@@ -22,7 +22,7 @@ import {
   User,
   Settings
 } from "lucide-react";
-import studentIllustration from "../../assets/images/student-illustration.svg";
+import studentIllustration from "../../assets/images/student-hero.png";
 
 export default function StudentDashboardModern() {
   const [studentStats, setStudentStats] = useState({

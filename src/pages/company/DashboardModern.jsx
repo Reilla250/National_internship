@@ -24,7 +24,7 @@ import {
   BarChart3,
   Target
 } from "lucide-react";
-import companyIllustration from "../../assets/images/company-illustration.svg";
+import companyIllustration from "../../assets/images/company-hero.png";
 
 export default function CompanyDashboardModern() {
   const [companyStats, setCompanyStats] = useState({

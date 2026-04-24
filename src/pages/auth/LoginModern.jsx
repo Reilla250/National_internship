@@ -4,7 +4,7 @@ import { useAuth } from "../../context/AuthContext";
 import { authAPI } from "../../services/api";
 import { Button, Input } from "../../components/UI";
 import { Eye, EyeOff, Mail, Lock, User, Briefcase, GraduationCap, Building, Shield } from "lucide-react";
-import heroBg from "../../assets/images/hero-bg.svg";
+import heroBg from "../../assets/images/auth-bg.png";
 
 export default function LoginModern() {
   const { login } = useAuth();

@@ -66,6 +66,7 @@ com\internship\InternshipApplication.class
 com\internship\repository\SupervisorRepository.class
 com\internship\controller\CertificateController.class
 com\internship\entity\Internship$InternshipBuilder.class
+DatabaseCheck.class
 com\internship\security\JwtAuthFilter.class
 com\internship\dto\CollaborationProjectDTO$CreateRequest.class
 com\internship\entity\Student.class
@@ -91,6 +92,7 @@ com\internship\controller\ReportController.class
 com\internship\config\DatabaseTest.class
 com\internship\exception\BadRequestException.class
 com\internship\entity\Role$RoleBuilder.class
+VerifyDatabase.class
 com\internship\service\ApplicationService.class
 com\internship\repository\CertificateRepository.class
 com\internship\entity\Report$ReportBuilder.class
@@ -99,6 +101,7 @@ com\internship\repository\EvaluationRepository.class
 com\internship\service\InternshipService.class
 com\internship\controller\NotificationController.class
 com\internship\repository\CollaborationProjectRepository.class
+DBTest.class
 com\internship\controller\AuthController.class
 com\internship\service\AdminService.class
 com\internship\dto\EvaluationDTO$CreateRequest.class

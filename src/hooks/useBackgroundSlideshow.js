@@ -2,12 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Local internship-related background images
 const backgroundImages = [
-  '/src/assets/images/bg-internship-1.svg', // Professional Office Environment
-  '/src/assets/images/bg-internship-2.svg', // Team Collaboration
-  '/src/assets/images/bg-internship-3.svg', // Educational Setting
-  '/src/assets/images/bg-internship-4.svg', // Career Development
-  '/src/assets/images/bg-internship-5.svg', // Business Meeting
-  '/src/assets/images/bg-internship-6.svg', // Technology & Innovation
+  '/src/assets/images/auth-bg.png', // Professional Office Environment
 ];
 
 export function useBackgroundSlideshow(interval = 5000) {

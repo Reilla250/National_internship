@@ -5,7 +5,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-@Component
+// Disabled to save database connections
+// @Component
 public class DatabaseTest implements CommandLineRunner {
 
     @Autowired

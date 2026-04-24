@@ -44,9 +44,10 @@ public class InternshipService {
         List<Student> students = studentRepository.findAll();
         List<Notification> notifications = students.stream().map(student -> Notification.builder()
                 .recipient(student.getUser())
+                .title("New Internship Published")
                 .message(String.format("New Internship Published: %s by %s", savedInternship.getTitle(), company.getCompanyName()))
                 .type("INFO")
-                .isRead(false)
+                .status("UNREAD")
                 .build()).toList();
         notificationRepository.saveAll(notifications);
 

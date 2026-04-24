@@ -23,9 +23,10 @@ public class NotificationService {
         userRepository.findByEmail(email).ifPresent(user -> {
             Notification notification = Notification.builder()
                     .recipient(user)
+                    .title("Registration Update")
                     .message(message)
                     .type(type)
-                    .isRead(false)
+                    .status("UNREAD")
                     .build();
             notificationRepository.save(notification);
         });
@@ -46,7 +47,7 @@ public class NotificationService {
         if (!notification.getRecipient().getEmail().equals(email)) {
             throw new RuntimeException("Unauthorized");
         }
-        notification.setIsRead(true);
+        notification.setStatus("READ");
         notificationRepository.save(notification);
     }
 

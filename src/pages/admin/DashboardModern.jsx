@@ -23,7 +23,7 @@ import {
   Search,
   Filter
 } from "lucide-react";
-import adminIllustration from "../../assets/images/admin-illustration.svg";
+import adminIllustration from "../../assets/images/government-hero.png";
 
 export default function AdminDashboardModern() {
   const [stats, setStats] = useState({
