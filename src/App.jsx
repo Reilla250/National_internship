@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
+import ConnectionTest from "./components/ConnectionTest";
 
 // Auth
 import Login    from "./pages/auth/LoginModern";
@@ -131,6 +132,7 @@ export default function App() {
               </Route>
             </Route>
 
+            <Route path="/test-connection" element={<ConnectionTest />} />
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </BrowserRouter>

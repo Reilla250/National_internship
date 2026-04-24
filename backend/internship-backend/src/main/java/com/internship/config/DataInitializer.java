@@ -67,16 +67,27 @@ public class DataInitializer {
                     "University of Kigali (UoK)"
                 };
 
+                int institutionsAdded = 0;
                 for (String name : institutions) {
                     if (institutionRepository.findByName(name).isEmpty()) {
-                        institutionRepository.save(Institution.builder()
-                                .name(name)
-                                .type(name.contains("Polytechnic") ? "Polytechnic" : "University")
-                                .build());
+                        try {
+                            Institution institution = Institution.builder()
+                                    .name(name)
+                                    .type(name.contains("Polytechnic") ? "Polytechnic" : "University")
+                                    .contactEmail("info@" + name.toLowerCase().replaceAll("[^a-z]", "").replaceAll("\\s+", "") + ".ac.rw")
+                                    .address("Kigali, Rwanda")
+                                    .build();
+                            institutionRepository.save(institution);
+                            institutionsAdded++;
+                            log.info("Added institution: {}", name);
+                        } catch (Exception e) {
+                            log.error("Failed to add institution {}: {}", name, e.getMessage());
+                        }
                     }
                 }
                 
-                log.info("System initialized with roles and institutions data.");
+                long totalInstitutions = institutionRepository.count();
+                log.info("Database initialization complete. Added {} new institutions. Total institutions: {}", institutionsAdded, totalInstitutions);
             } catch (Exception e) {
                 log.warn("Database initialization skipped (connection limit or error): {}", e.getMessage());
             }

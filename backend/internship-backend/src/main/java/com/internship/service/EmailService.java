@@ -82,6 +82,13 @@ public class EmailService {
 
     @Async
     public void sendVerificationOtpEmail(String to, String name, String otp) {
+        // Log OTP to console for testing purposes
+        log.info("=== OTP FOR TESTING ===");
+        log.info("Email: {}", to);
+        log.info("Name: {}", name);
+        log.info("OTP Code: {}", otp);
+        log.info("====================");
+        
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(FROM_EMAIL);
@@ -98,6 +105,7 @@ public class EmailService {
             log.info("Verification OTP email sent to: {}", to);
         } catch (Exception e) {
             log.error("Failed to send verification OTP email to: {}. Error: {}", to, e.getMessage());
+            log.info("OTP was logged to console for manual verification");
         }
     }
 

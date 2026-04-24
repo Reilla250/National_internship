@@ -50,6 +50,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**", "/api/institution/**").permitAll()
                 .requestMatchers("/api/certificates/verify/**").permitAll()
                 .requestMatchers("/api/internships/**").permitAll()
+                .requestMatchers("/api/test/**").permitAll()
+                .requestMatchers("/api/database/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/government/**").hasAnyRole("ADMIN", "GOVERNMENT")
                 .anyRequest().authenticated()

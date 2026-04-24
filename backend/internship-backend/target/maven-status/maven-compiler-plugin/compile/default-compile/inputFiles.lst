@@ -1,3 +1,4 @@
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\CheckRoles.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\config\DatabaseTest.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\config\DataInitializer.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\config\SecurityConfig.java
@@ -8,6 +9,7 @@ C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\jav
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\CollaborationProjectController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\DashboardController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\DatabaseCheckController.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\DatabaseHealthController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\EvaluationController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\HomeController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\InstitutionController.java
@@ -15,12 +17,16 @@ C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\jav
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\NotificationController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\ReportController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\SupervisorController.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\controller\TestInstitutionController.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\ApplicationDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\AuthDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\CertificateDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\CollaborationProjectDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\EvaluationDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\InternshipDTO.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\OtpDTO\OtpResendRequest.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\OtpDTO\OtpResponse.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\OtpVerificationRequest.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\ReportDTO.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\dto\response\NotificationResponse.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\entity\Application.java
@@ -72,5 +78,15 @@ C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\jav
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\service\ReportService.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\com\internship\service\SupervisorService.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\DatabaseCheck.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\DatabaseConnectionTest.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\DBTest.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\SystemStatusCheck.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TestEmailConfig.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TestEmailService.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TestEndpoints.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TestLogin.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TestNoOTP.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TiDBCloudTest.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\TiDBConnectionTest.java
 C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\VerifyDatabase.java
+C:\Users\Pazzo\Desktop\internship-system\backend\internship-backend\src\main\java\WorkingLoginTest.java

@@ -2,9 +2,9 @@ import java.sql.*;
 
 public class DBTest {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7824124?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-        String username = "sql7824124";
-        String password = "qVGEi2Apfd";
+        String url = "jdbc:mysql://shortline.proxy.rlwy.net:44641/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+        String username = "root";
+        String password = "zkJyVvwSZXIhtygFYXSBYClKOIkrGPRX";
         
         try {
             System.out.println("Testing Cloud Database connection...");

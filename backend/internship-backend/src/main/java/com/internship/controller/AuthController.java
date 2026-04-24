@@ -1,7 +1,6 @@
 package com.internship.controller;
 
 import com.internship.dto.AuthDTO.*;
-import com.internship.dto.OtpDTO.*;
 import com.internship.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,15 +35,5 @@ public class AuthController {
     public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordRequest req) {
         authService.resetPassword(req);
         return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/send-otp")
-    public ResponseEntity<OtpResponse> sendOtp(@Valid @RequestBody OtpResendRequest req) {
-        return ResponseEntity.ok(authService.generateAndSendOtp(req));
-    }
-
-    @PostMapping("/verify-otp")
-    public ResponseEntity<OtpResponse> verifyOtp(@Valid @RequestBody OtpVerificationRequest req) {
-        return ResponseEntity.ok(authService.verifyOtp(req));
     }
 }

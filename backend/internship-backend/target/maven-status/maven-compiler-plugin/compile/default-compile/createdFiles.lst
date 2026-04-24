@@ -43,6 +43,7 @@ com\internship\service\EmailService.class
 com\internship\controller\SupervisorController.class
 com\internship\entity\Role.class
 com\internship\entity\Notification$NotificationBuilder.class
+TestEmailConfig.class
 com\internship\dto\CertificateDTO.class
 com\internship\controller\DatabaseCheckController.class
 com\internship\repository\InstitutionRepository.class
@@ -103,6 +104,7 @@ com\internship\controller\NotificationController.class
 com\internship\repository\CollaborationProjectRepository.class
 DBTest.class
 com\internship\controller\AuthController.class
+TestEmailService.class
 com\internship\service\AdminService.class
 com\internship\dto\EvaluationDTO$CreateRequest.class
 com\internship\dto\ReportDTO$CreateRequest.class

@@ -194,23 +194,82 @@ docker-compose up -d
 
 ---
 
-## Option 4: Cloud Deployment (Vercel + Railway/Render)
+## Option 4: Cloud Deployment (Vercel + Render + TiDB Cloud)
 
-### Deploy Frontend to Vercel
+### Step 1: Deploy Backend to Render
+
+#### 1.1 Push Code to GitHub
+```cmd
+git add .
+git commit -m "Ready for Render deployment with TiDB Cloud"
+git push origin main
+```
+
+#### 1.2 Deploy to Render
+1. Go to [render.com](https://render.com)
+2. Click "New" → "Web Service"
+3. Connect your GitHub repository: `Reilla250/National_internship`
+4. Configure:
+   - **Name**: `internship-backend`
+   - **Root Directory**: `backend/internship-backend`
+   - **Runtime**: Docker
+   - **Build Command**: (auto-detected from Dockerfile)
+   - **Start Command**: (auto-detected from Dockerfile)
+   - **Instance Type**: Free
+
+#### 1.3 Set Environment Variables in Render
+Add these environment variables:
+```
+PORT=8085
+DB_HOST=jdbc:mysql://gateway01.eu-central-1.prod.aws.tidbcloud.com:4000/internship_db?useSSL=true&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2,TLSv1.3
+DB_USER=3jMrabZWjdqqmw9.root
+DB_PASSWORD=6QWm64HjDfYkgQLc
+DB_NAME=internship_db
+```
+
+#### 1.4 Deploy
+Click "Create Web Service" - Render will automatically deploy your backend.
+
+### Step 2: Deploy Frontend to Vercel
+
+#### 2.1 Update Vercel Configuration
+Update `vercel.json` to point to your Render backend:
+```json
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://your-backend-url.onrender.com/api/$1"
+    }
+  ]
+}
+```
+
+#### 2.2 Deploy to Vercel
 ```cmd
 npm i -g vercel
 cd C:\Users\Pazzo\Desktop\internship-system
 vercel
 ```
 
-### Deploy Backend to Railway/Render
-1. Push code to GitHub
-2. Connect Railway/Render to your repo
-3. Set environment variables:
-   - `SPRING_DATASOURCE_URL`
-   - `SPRING_DATASOURCE_USERNAME`
-   - `SPRING_DATASOURCE_PASSWORD`
-   - `APP_JWT_SECRET`
+Follow the prompts:
+- Link to your Vercel account (or create one)
+- Choose project settings
+- Deploy!
+
+#### 2.3 Update Frontend Environment Variables
+In Vercel dashboard, add environment variable:
+```
+REACT_APP_API_URL=https://your-backend-url.onrender.com
+```
+
+### Step 3: Update CORS Configuration
+
+Update `application.properties` to include your Vercel domain:
+```properties
+app.cors.allowed-origins=http://localhost:3000,https://your-frontend-url.vercel.app
+```
 
 ---
 
