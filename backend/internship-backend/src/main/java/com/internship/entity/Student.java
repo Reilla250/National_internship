@@ -73,4 +73,7 @@ public class Student {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "supervisor_id")
+    private Long supervisorId;
 }

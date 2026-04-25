@@ -107,12 +107,15 @@ export const dashboardAPI = {
 };
 
 export const adminAPI = {
-  getUsers:      ()               => api.get("/api/admin/users"),
-  setUserStatus: (userId, status) => api.patch(`/api/admin/users/${userId}/status`, null, { params: { status } }),
-  getStats:      ()               => api.get("/api/admin/stats"),
-  getCompanies:  ()               => api.get("/api/admin/companies"),
-  createUser:    (data)           => api.post("/api/admin/users", data),
-  deleteUser:    (userId)         => api.delete(`/api/admin/users/${userId}`),
+  getUsers:              ()                        => api.get("/api/admin/users"),
+  setUserStatus:         (userId, status)          => api.patch(`/api/admin/users/${userId}/status`, null, { params: { status } }),
+  getStats:              ()                        => api.get("/api/admin/stats"),
+  getCompanies:          ()                        => api.get("/api/admin/companies"),
+  createUser:            (data)                    => api.post("/api/admin/users", data),
+  deleteUser:            (userId)                  => api.delete(`/api/admin/users/${userId}`),
+  getSupervisors:        ()                        => api.get("/api/admin/supervisors"),
+  getStudentsList:       ()                        => api.get("/api/admin/students"),
+  assignSupervisor:      (studentId, supervisorId) => api.patch(`/api/admin/students/${studentId}/assign-supervisor`, null, { params: { supervisorId } }),
 };
 
 export default api;

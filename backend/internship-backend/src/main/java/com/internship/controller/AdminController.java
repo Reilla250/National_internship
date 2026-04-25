@@ -53,4 +53,22 @@ public class AdminController {
     public Map<String, Object> getStats() {
         return adminService.getSystemStats();
     }
+
+    @PatchMapping("/students/{studentId}/assign-supervisor")
+    public ResponseEntity<Void> assignSupervisorToStudent(
+            @PathVariable Long studentId,
+            @RequestParam Long supervisorId) {
+        adminService.assignSupervisorToStudent(studentId, supervisorId);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/supervisors")
+    public ResponseEntity<List<?>> getAllSupervisors() {
+        return ResponseEntity.ok(adminService.getAllSupervisors());
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<List<?>> getAllStudents() {
+        return ResponseEntity.ok(adminService.getAllStudents());
+    }
 }

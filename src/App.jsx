@@ -42,7 +42,8 @@ import InstitutionStudents  from "./pages/institution/Students";
 import GovernmentDashboard from "./pages/government/Dashboard";
 
 // Admin
-import AdminDashboard from "./pages/admin/Dashboard";
+import AdminDashboard     from "./pages/admin/Dashboard";
+import AssignSupervisor   from "./pages/admin/AssignSupervisor";
 
 function Unauthorized() {
   return (
@@ -124,11 +125,12 @@ export default function App() {
             {/* Admin */}
             <Route element={<ProtectedRoute roles={["ADMIN"]} />}>
               <Route element={<Layout />}>
-                <Route path="/admin/dashboard"    element={<AdminDashboard />} />
-                <Route path="/admin/users"        element={<AdminDashboard />} />
-                <Route path="/admin/internships"  element={<CompanyInternships />} />
-                <Route path="/admin/applications" element={<CompanyApplications />} />
-                <Route path="/admin/certificates" element={<InstitutionDashboard />} />
+                <Route path="/admin/dashboard"         element={<AdminDashboard />} />
+                <Route path="/admin/users"             element={<AdminDashboard />} />
+                <Route path="/admin/assign-supervisor" element={<AssignSupervisor />} />
+                <Route path="/admin/internships"       element={<CompanyInternships />} />
+                <Route path="/admin/applications"      element={<CompanyApplications />} />
+                <Route path="/admin/certificates"      element={<InstitutionDashboard />} />
               </Route>
             </Route>
 

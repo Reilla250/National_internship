@@ -1,6 +1,7 @@
 package com.internship.service;
 
 import com.internship.entity.User;
+import com.internship.entity.Student;
 import com.internship.exception.ResourceNotFoundException;
 import com.internship.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -120,5 +121,22 @@ public class AdminService {
         }
         
         return stats;
+    }
+    @Transactional
+    public void assignSupervisorToStudent(Long studentId, Long supervisorId) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found: " + studentId));
+        supervisorRepository.findById(supervisorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Supervisor not found: " + supervisorId));
+        student.setSupervisorId(supervisorId);
+        studentRepository.save(student);
+    }
+
+    public List<com.internship.entity.Supervisor> getAllSupervisors() {
+        return supervisorRepository.findAll();
+    }
+
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }

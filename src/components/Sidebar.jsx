@@ -38,11 +38,12 @@ const NAV = {
     { to: "/government/stats",     icon: "📊", label: "Analytics" },
   ],
   ADMIN: [
-    { to: "/admin/dashboard",    icon: "🏠",  label: "Dashboard" },
-    { to: "/admin/users",        icon: "👥",  label: "User Management" },
-    { to: "/admin/internships",  icon: "💼",  label: "Internships" },
-    { to: "/admin/applications", icon: "📋",  label: "Applications" },
-    { to: "/admin/certificates", icon: "🎓",  label: "Certificates" },
+    { to: "/admin/dashboard",          icon: "🏠",  label: "Dashboard" },
+    { to: "/admin/users",              icon: "👥",  label: "User Management" },
+    { to: "/admin/assign-supervisor",  icon: "👨‍🏫", label: "Assign Supervisors" },
+    { to: "/admin/internships",        icon: "💼",  label: "Internships" },
+    { to: "/admin/applications",       icon: "📋",  label: "Applications" },
+    { to: "/admin/certificates",       icon: "🎓",  label: "Certificates" },
   ],
 };
 
