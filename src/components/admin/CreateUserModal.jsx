@@ -126,8 +126,8 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
           />
         </div>
 
-        {(form.roleName === "STUDENT" || form.roleName === "SUPERVISOR") && (
-          <div className="grid grid-cols-2 gap-4">
+        {(form.roleName === "STUDENT" || form.roleName === "SUPERVISOR" || form.roleName === "INSTITUTION") && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="First Name" name="firstName" value={form.firstName} onChange={set} required />
             <Input label="Last Name" name="lastName" value={form.lastName} onChange={set} required />
           </div>
@@ -135,7 +135,7 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
 
         {form.roleName === "STUDENT" && (
           <>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Select label="Institution" name="institutionId" value={form.institutionId || ""} onChange={set} required>
                 <option value="">Select Institution...</option>
                 {institutions.map(inst => (
@@ -144,7 +144,7 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
               </Select>
               <Input label="Program / Field of Study" name="program" value={form.program} onChange={set} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Registration Number" name="registrationNumber" value={form.registrationNumber} onChange={set} required />
               <Input label="Phone Number" name="phone" value={form.phone} onChange={set} required />
             </div>
@@ -152,11 +152,23 @@ export default function CreateUserModal({ isOpen, onClose, onUserCreated }) {
         )}
 
         {form.roleName === "SUPERVISOR" && (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select label="Assigned Company" name="companyId" value={form.companyId || ""} onChange={set}>
               <option value="">Select Company...</option>
               {companies.map(c => <option key={c.companyId} value={c.companyId}>{c.companyName}</option>)}
             </Select>
+            <Select label="Institution" name="institutionId" value={form.institutionId || ""} onChange={set} required>
+              <option value="">Select Institution...</option>
+              {institutions.map(inst => (
+                <option key={inst.institutionId} value={inst.institutionId}>{inst.name}</option>
+              ))}
+            </Select>
+            <Input label="Phone Number" name="phone" value={form.phone || ""} onChange={set} />
+          </div>
+        )}
+
+        {form.roleName === "INSTITUTION" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Select label="Institution" name="institutionId" value={form.institutionId || ""} onChange={set} required>
               <option value="">Select Institution...</option>
               {institutions.map(inst => (
