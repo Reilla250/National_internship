@@ -35,10 +35,7 @@ The system improves transparency, efficiency, and communication across all stake
 ### 🔹 Frontend
 
 * React 18
-* React Router v6
 * Tailwind CSS
-* Recharts
-* Axios
 
 ### 🔹 Backend
 
