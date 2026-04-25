@@ -4,7 +4,7 @@
 Moving both backend and frontend to Render while keeping TiDB Cloud as the database.
 
 ## Current Status
-✅ **Backend**: Already deployed to Render - `https://national-internship-i7zp.onrender.com`  
+✅ **Backend**: Already deployed to Render - `https://national-internship-3-gpza.onrender.com`  
 🔄 **Frontend**: Currently on Vercel - moving to Render  
 ✅ **Database**: TiDB Cloud - staying as is  
 
@@ -29,17 +29,17 @@ services:
     staticPublishPath: ./build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://national-internship-i7zp.onrender.com
+        value: https://national-internship-3-gpza.onrender.com
 ```
 
 ### 2. Updated CORS Configuration
 ```properties
-app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.onrender.com,https://*.vercel.app,https://national-internship-i7zp.onrender.com,https://national-internship-frontend.onrender.com
+app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.onrender.com,https://*.vercel.app,https://national-internship-3-gpza.onrender.com,https://national-internship-frontend.onrender.com
 ```
 
 ### 3. Frontend Environment
 ```env
-REACT_APP_API_URL=https://national-internship-i7zp.onrender.com
+REACT_APP_API_URL=https://national-internship-3-gpza.onrender.com
 ```
 
 ## 🚀 Deployment Steps
@@ -72,13 +72,13 @@ git push origin main
    - **Instance Type**: Free
 5. Add Environment Variable:
    ```
-   REACT_APP_API_URL=https://national-internship-i7zp.onrender.com
+   REACT_APP_API_URL=https://national-internship-3-gpza.onrender.com
    ```
 6. Click "Create Web Service"
 
 ### Step 3: Verify Deployment
 
-#### Backend URL: `https://national-internship-i7zp.onrender.com`
+#### Backend URL: `https://national-internship-3-gpza.onrender.com`
 #### Frontend URL: `https://national-internship-frontend.onrender.com`
 
 ### Step 4: Test Complete System
@@ -125,7 +125,7 @@ frontend.onrender.com  i7zp.onrender.com
 ## 📊 Final URLs After Deployment
 
 - **Frontend**: `https://national-internship-frontend.onrender.com`
-- **Backend**: `https://national-internship-i7zp.onrender.com`
+- **Backend**: `https://national-internship-3-gpza.onrender.com`
 - **Database**: TiDB Cloud (unchanged)
 
 ## 🎉 Completion Checklist

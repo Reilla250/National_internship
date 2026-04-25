@@ -49,7 +49,7 @@ git push -u origin main
 2. Click "New Project"
 3. Select `national-internship-frontend` repository
 4. Set environment variable:
-   - `REACT_APP_API_URL=https://national-internship-i7zp.onrender.com`
+   - `REACT_APP_API_URL=https://national-internship-3-gpza.onrender.com`
 5. Click "Deploy"
 
 ## Alternative: Manual Vercel Fix

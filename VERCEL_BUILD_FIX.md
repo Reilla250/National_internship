@@ -34,7 +34,7 @@ database/
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://national-internship-i7zp.onrender.com/api/$1"
+      "destination": "https://national-internship-3-gpza.onrender.com/api/$1"
     }
   ],
   "ignoreCommand": "echo 'No ignore command'"

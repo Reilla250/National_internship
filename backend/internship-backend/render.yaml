@@ -42,6 +42,6 @@ services:
     branch: main
     envVars:
       - key: REACT_APP_API_URL
-        value: https://national-internship-i7zp.onrender.com
+        value: https://national-internship-3-gpza.onrender.com
     domains:
       - national-internship-frontend.onrender.com

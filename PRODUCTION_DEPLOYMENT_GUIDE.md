@@ -1,7 +1,7 @@
 # 🚀 Production Deployment Guide - Render + Vercel + TiDB Cloud
 
 ## Current Status
-✅ **Backend**: Deployed to Render - `https://national-internship-i7zp.onrender.com`  
+✅ **Backend**: Deployed to Render - `https://national-internship-3-gpza.onrender.com`  
 ✅ **Database**: TiDB Cloud - Connected and working  
 🔄 **Frontend**: Ready to deploy to Vercel  
 🔄 **CORS**: Configuration updated for production  
@@ -13,7 +13,7 @@
 ### 1. Backend CORS Configuration Updated
 **File**: `backend/internship-backend/src/main/resources/application.properties`
 ```properties
-app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.onrender.com,https://*.vercel.app,https://national-internship-i7zp.onrender.com
+app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.onrender.com,https://*.vercel.app,https://national-internship-3-gpza.onrender.com
 ```
 
 ### 2. Frontend API Configuration Updated
@@ -24,7 +24,7 @@ app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.o
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://national-internship-i7zp.onrender.com/api/$1"
+      "destination": "https://national-internship-3-gpza.onrender.com/api/$1"
     }
   ]
 }
@@ -32,7 +32,7 @@ app.cors.allowed-origins=http://localhost:3000,http://127.0.0.1:3000,https://*.o
 
 **File**: `.env`
 ```env
-REACT_APP_API_URL=https://national-internship-i7zp.onrender.com
+REACT_APP_API_URL=https://national-internship-3-gpza.onrender.com
 ```
 
 ---
@@ -68,7 +68,7 @@ Compress-Archive -Path * -DestinationPath internship-frontend-updated.zip -Force
 ### Step 3: Set Environment Variables in Vercel
 In Vercel dashboard → Settings → Environment Variables:
 ```
-REACT_APP_API_URL=https://national-internship-i7zp.onrender.com
+REACT_APP_API_URL=https://national-internship-3-gpza.onrender.com
 ```
 
 ### Step 4: Deploy
@@ -98,10 +98,10 @@ Compress-Archive -Path * -DestinationPath ..\..\internship-backend-updated.zip -
 ### Test Backend API
 ```bash
 # Test institutions endpoint
-curl https://national-internship-i7zp.onrender.com/api/institution
+curl https://national-internship-3-gpza.onrender.com/api/institution
 
 # Test database health
-curl https://national-internship-i7zp.onrender.com/api/database/health
+curl https://national-internship-3-gpza.onrender.com/api/database/health
 ```
 
 ### Test Frontend
@@ -114,7 +114,7 @@ curl https://national-internship-i7zp.onrender.com/api/database/health
 
 ## 📊 Expected Production URLs
 
-- **Backend**: `https://national-internship-i7zp.onrender.com`
+- **Backend**: `https://national-internship-3-gpza.onrender.com`
 - **Frontend**: `https://your-app-name.vercel.app`
 - **Database**: TiDB Cloud (already configured)
 
