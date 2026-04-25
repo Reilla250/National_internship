@@ -6,6 +6,10 @@
 ![Database](https://img.shields.io/badge/database-MySQL-orange)
 ![License](https://img.shields.io/badge/license-Academic-lightgrey)
 
+## 🚀 Live Demonstration
+- **Frontend Portal**: [https://national-internship-4.onrender.com](https://national-internship-4.onrender.com)
+- **Backend API Base**: [https://national-internship-3-gpza.onrender.com](https://national-internship-3-gpza.onrender.com)
+
 ---
 
 ## 📌 Overview
