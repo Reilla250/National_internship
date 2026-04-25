@@ -163,7 +163,7 @@ export default function Register() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="Email" type="email" name="email" value={form.email} onChange={set} required />
                 <Input
                   label="Password"
@@ -184,12 +184,12 @@ export default function Register() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input label="First Name" name="firstName" value={form.firstName} onChange={set} required />
                 <Input label="Last Name" name="lastName" value={form.lastName} onChange={set} required />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Select 
                     label="Institution" 
@@ -225,7 +225,7 @@ export default function Register() {
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {form.roleName === 'STUDENT' && (
                   <Input label="Registration Number" name="registrationNumber" value={form.registrationNumber} onChange={set} required placeholder="e.g. 222001234" />
                 )}

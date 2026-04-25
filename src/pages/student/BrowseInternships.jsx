@@ -47,26 +47,28 @@ export default function BrowseInternships() {
 
       {/* Search Filters */}
       <Card className="mb-6">
-        <form onSubmit={handleSearch} className="flex flex-wrap gap-3 items-end">
-          <div className="flex-1 min-w-[160px]">
+        <form onSubmit={handleSearch} className="flex flex-col sm:flex-row flex-wrap gap-3 items-stretch sm:items-end">
+          <div className="flex-1 min-w-0">
             <Input placeholder="Search by keyword..." value={filters.keyword}
               onChange={e => setFilters({...filters, keyword: e.target.value})} />
           </div>
-          <div className="w-40">
+          <div className="sm:w-40">
             <Select value={filters.sector} onChange={e => setFilters({...filters, sector: e.target.value})}>
               <option value="">All Sectors</option>
               {["ICT","Finance","Health","Education","Agriculture","Engineering","Media"].map(s =>
                 <option key={s} value={s}>{s}</option>)}
             </Select>
           </div>
-          <div className="w-40">
+          <div className="sm:w-40">
             <Input placeholder="Location..." value={filters.location}
               onChange={e => setFilters({...filters, location: e.target.value})} />
           </div>
-          <Button type="submit">🔍 Search</Button>
-          <Button type="button" variant="secondary" onClick={() => { setFilters({keyword:"",sector:"",location:""}); load(); }}>
-            Clear
-          </Button>
+          <div className="flex gap-2">
+            <Button type="submit" className="flex-1 sm:flex-none">🔍 Search</Button>
+            <Button type="button" variant="secondary" className="flex-1 sm:flex-none" onClick={() => { setFilters({keyword:"",sector:"",location:""}); load(); }}>
+              Clear
+            </Button>
+          </div>
         </form>
       </Card>
 
@@ -113,7 +115,7 @@ export default function BrowseInternships() {
       <Modal open={!!selected && !applyModal} onClose={() => setSelected(null)} title={selected?.title} size="lg">
         {selected && (
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
               <div><span className="font-medium">Company:</span> {selected.companyName}</div>
               <div><span className="font-medium">Sector:</span> {selected.sector}</div>
               <div><span className="font-medium">Location:</span> {selected.location}</div>

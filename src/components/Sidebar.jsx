@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Menu, X } from "lucide-react";
 import { clsx } from "clsx";
 import NotificationBox from "./NotificationBox";
 
@@ -64,11 +64,48 @@ const ROLE_COLOR = {
   ADMIN:       "from-red-700 to-red-900",
 };
 
-export default function Sidebar() {
+// ── Mobile Top Bar ──────────────────────────────────────
+export function MobileTopBar({ onOpen }) {
+  const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const bgGrad = ROLE_COLOR[user?.role] || "from-gray-700 to-gray-900";
+
+  return (
+    <div className={clsx(
+      "lg:hidden flex items-center justify-between px-4 py-3 bg-gradient-to-r text-white sticky top-0 z-30 shadow-md",
+      bgGrad
+    )}>
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onOpen}
+          className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+          aria-label="Open menu"
+        >
+          <Menu size={22} />
+        </button>
+        <div>
+          <p className="font-bold text-sm leading-none">NDIMS</p>
+          <p className="text-xs text-white/60">{ROLE_LABEL[user?.role]}</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-1">
+        {user && <NotificationBox />}
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-lg hover:bg-white/10 transition-colors"
+        >
+          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── Sidebar Content ─────────────────────────────────────
+function SidebarContent({ collapsed, onClose }) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
 
   const items = NAV[user?.role] || [];
   const bgGrad = ROLE_COLOR[user?.role] || "from-gray-700 to-gray-900";
@@ -81,34 +118,47 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={clsx(
-      `flex flex-col bg-gradient-to-b ${bgGrad} text-white min-h-screen transition-all duration-200 flex-shrink-0`,
+    <div className={clsx(
+      `flex flex-col bg-gradient-to-b ${bgGrad} text-white h-full transition-all duration-300`,
       collapsed ? "w-16" : "w-64"
     )}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">
+      <div className="flex items-center justify-between px-4 py-5 border-b border-white/10 flex-shrink-0">
         {!collapsed && (
           <div className="min-w-0">
             <p className="font-bold text-sm truncate">NDIMS</p>
             <p className="text-xs text-white/60 truncate">{ROLE_LABEL[user?.role]}</p>
           </div>
         )}
-        <div className="flex items-center gap-1 sm:gap-2">
-          {user && <NotificationBox />}
-          <button
-            onClick={toggleTheme}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-            title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
-          >
-            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0"
-            title={collapsed ? "Expand" : "Collapse"}
-          >
-            {collapsed ? "▶" : "◀"}
-          </button>
+        <div className="flex items-center gap-1">
+          {/* Show close button on mobile (when onClose is provided) */}
+          {onClose ? (
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors lg:hidden"
+            >
+              <X size={18} />
+            </button>
+          ) : null}
+          {user && !onClose && <NotificationBox />}
+          {!onClose && (
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors"
+              title={theme === "light" ? "Switch to Dark" : "Switch to Light"}
+            >
+              {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+          )}
+          {/* Collapse toggle — desktop only */}
+          {!onClose && (
+            <button
+              onClick={() => {}}
+              className="p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors flex-shrink-0 hidden lg:flex"
+            >
+              {collapsed ? "▶" : "◀"}
+            </button>
+          )}
         </div>
       </div>
 
@@ -119,9 +169,10 @@ export default function Sidebar() {
             key={item.to}
             to={item.to}
             title={collapsed ? item.label : undefined}
+            onClick={onClose}
             className={({ isActive }) =>
               clsx(
-                "flex items-center gap-3 px-4 py-2.5 text-sm transition-colors mx-2 rounded-lg mb-0.5",
+                "flex items-center gap-3 px-4 py-3 text-sm transition-colors mx-2 rounded-lg mb-0.5",
                 isActive
                   ? "bg-white/20 text-white font-medium"
                   : "text-white/70 hover:bg-white/10 hover:text-white"
@@ -135,7 +186,7 @@ export default function Sidebar() {
       </nav>
 
       {/* User Footer */}
-      <div className="border-t border-white/10 p-4">
+      <div className="border-t border-white/10 p-4 flex-shrink-0">
         {!collapsed && (
           <div className="mb-3">
             <p className="text-xs text-white/40 truncate">{user?.email}</p>
@@ -153,6 +204,59 @@ export default function Sidebar() {
           {!collapsed && <span>Logout</span>}
         </button>
       </div>
-    </aside>
+    </div>
+  );
+}
+
+// ── Main Sidebar Export ─────────────────────────────────
+export default function Sidebar({ mobileOpen, onMobileClose }) {
+  const [collapsed, setCollapsed] = useState(false);
+  const location = useLocation();
+
+  // Close mobile drawer on route change
+  useEffect(() => {
+    if (onMobileClose) onMobileClose();
+  }, [location.pathname]);
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className={clsx(
+          "hidden lg:flex flex-col min-h-screen flex-shrink-0 transition-all duration-300",
+          collapsed ? "w-16" : "w-64"
+        )}
+      >
+        <div className="relative h-full" onClick={(e) => {
+          // Toggle collapse when clicking the collapse button area
+          if (e.target.closest('.collapse-btn')) setCollapsed(c => !c);
+        }}>
+          <SidebarContent collapsed={collapsed} onClose={null} />
+          {/* Collapse toggle overlay button */}
+          <button
+            className="collapse-btn absolute top-5 right-3 p-1.5 rounded-lg hover:bg-white/10 text-white/70 hover:text-white transition-colors z-10"
+            onClick={() => setCollapsed(c => !c)}
+          >
+            {collapsed ? "▶" : "◀"}
+          </button>
+        </div>
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onMobileClose}
+        />
+      )}
+
+      {/* Mobile Drawer */}
+      <div className={clsx(
+        "fixed top-0 left-0 h-full z-50 lg:hidden transform transition-transform duration-300",
+        mobileOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        <SidebarContent collapsed={false} onClose={onMobileClose} />
+      </div>
+    </>
   );
 }

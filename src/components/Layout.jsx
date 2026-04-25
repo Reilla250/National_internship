@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar, { MobileTopBar } from "./Sidebar";
 import SystemNotice from "./SystemNotice";
 
 export default function Layout() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
-      <main className="flex-1 overflow-auto bg-gray-50 dark:bg-gray-900 flex flex-col relative w-full transition-colors duration-200">
-        <SystemNotice />
-        <div className="max-w-7xl mx-auto p-6 w-full flex-1">
-          <Outlet />
-        </div>
-      </main>
+    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+      <Sidebar
+        mobileOpen={mobileOpen}
+        onMobileClose={() => setMobileOpen(false)}
+      />
+      <div className="flex-1 flex flex-col min-w-0 w-full">
+        {/* Mobile top nav bar */}
+        <MobileTopBar onOpen={() => setMobileOpen(true)} />
+
+        <main className="flex-1 overflow-auto transition-colors duration-200">
+          <SystemNotice />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 w-full">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
