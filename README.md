@@ -10,8 +10,6 @@
 - **Frontend Portal**: [https://national-internship-4.onrender.com](https://national-internship-4.onrender.com)
 - **Backend API Base**: [https://national-internship-3-gpza.onrender.com](https://national-internship-3-gpza.onrender.com)
 
----
-
 ## 📌 Overview
 
 **NDIMS** is a full-stack web platform designed to digitize and manage national internship programs while strengthening collaboration between:
@@ -24,8 +22,6 @@
 
 The system improves transparency, efficiency, and communication across all stakeholders.
 
----
-
 ## 🎯 Objectives
 
 * Centralize internship management
@@ -33,8 +29,6 @@ The system improves transparency, efficiency, and communication across all stake
 * Enable real-time monitoring and evaluation
 * Provide national-level analytics and reporting
 * Improve collaboration between academia and industry
-
----
 
 ## 🛠 Tech Stack
 
@@ -58,8 +52,6 @@ The system improves transparency, efficiency, and communication across all stake
 
 * MySQL 8.0
 * Spring Data JPA (Hibernate)
-
----
 
 ## 👥 System Actors & Functionalities
 
@@ -102,8 +94,6 @@ The system improves transparency, efficiency, and communication across all stake
 * Monitor system performance
 * Control platform settings
 
----
-
 ## 🧱 System Architecture
 
 ```
@@ -115,8 +105,6 @@ Spring Security (JWT)
    ↓
 Database (MySQL)
 ```
-
----
 
 ## 📁 Project Structure
 
@@ -145,8 +133,6 @@ internship-system/
         └── pages/
 ```
 
----
-
 ## 🔄 System Workflow
 
 1. Student registers and logs in
@@ -158,8 +144,6 @@ internship-system/
 7. Certificate is generated
 8. Government monitors analytics
 
----
-
 ## ⚙️ Installation Guide
 
 ### 1️⃣ Database Setup
@@ -168,8 +152,6 @@ internship-system/
 mysql -u root -p < database/schema.sql
 ```
 
----
-
 ### 2️⃣ Backend Setup
 
 ```
@@ -177,9 +159,8 @@ cd backend/internship-backend
 mvn spring-boot:run
 ```
 
-Runs at: http://localhost:8080
+Runs at: https://national-internship-3-gpza.onrender.com
 
----
 
 ### 3️⃣ Frontend Setup
 
@@ -189,9 +170,7 @@ npm install
 npm start
 ```
 
-Runs at: http://localhost:3000
-
----
+Runs at: https://national-internship-4.onrender.com
 
 ## 🔐 Security Features
 
@@ -207,8 +186,7 @@ Runs at: http://localhost:3000
 
 This NDIMS system is configured for **PRODUCTION USE ONLY**:
 
-- ❌ **No Demo Accounts**: No hardcoded demo credentials exist
-- ❌ **No Default Access**: All users must register through proper process
+
 - ✅ **Secure Authentication**: BCrypt password hashing with JWT tokens
 - ✅ **Role-Based Access**: Proper authorization controls implemented
 
@@ -246,8 +224,6 @@ Your NDIMS system is fully secured and ready for production deployment with:
 - Professional user registration flow
 - Comprehensive role-based authorization
 
----
-
 ## 📊 Key Features
 
 * Internship Management System
@@ -256,7 +232,6 @@ Your NDIMS system is fully secured and ready for production deployment with:
 * Certificate Generation & Verification
 * National Analytics Dashboard
 
----
 
 ## 🚀 Future Improvements
 
@@ -266,18 +241,15 @@ Your NDIMS system is fully secured and ready for production deployment with:
 * Email integration
 * National ID system integration
 
----
 
 ## 🤝 Contribution
 
 This project is developed for academic and learning purposes.
 
----
 
 ## 👨‍💻 Author
 
 **Patric Tuyisenge**
 
----
 
-⭐ NDIMS v1.0 — Smart Internship Management System
+⭐ NDIMS v1.0 — National Internship Management System
